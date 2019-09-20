@@ -11,13 +11,16 @@ If you have my same need, **feel free to use this class for your test purpose**.
 
 To get a random name we just have to use the function `get_name`.
 
-    <?php echo LZFakeTextGenerator::get_name(); ?>
+```php
+<?php echo LZFakeTextGenerator::get_name(); ?>
+```
 or
 
-    <?php
+```php
+<?php
     $FAKE = new LZFakeTextGenerator;
-    echo $FAKE->get_name();
+    echo $FAKE->get_name();```
 
 Result
 
-    // Alice
+```php // Alice```
