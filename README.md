@@ -3,4 +3,21 @@ Hi, I'm Lenin, and I dared to create this class that will allow you to generate 
 
 > STOP KILLING YOU THINKING THAT INFORMATION ABOUT NAMES, SURNAMES, USERS, EMAILS, CREDIT CARD, TEXT IN GENERAL, DECIMALS, ETC ... THIS LIBRARY WILL DO IT FOR YOU 😄
 
-If you have my same need, feel free to use this class for your test purpose. I will update it every time I need a new random field value for my tests.
+If you have my same need, **feel free to use this class for your test purpose**. I will update it every time I need a new random field value for my tests.
+
+## Examples of how to use its benefits
+
+**Get a random name**
+
+To get a random name we just have to use the function `get_name`.
+
+    <?php echo LZFakeTextGenerator::get_name(); ?>
+or
+
+    <?php
+    $FAKE = new LZFakeTextGenerator;
+    echo $FAKE->get_name();
+
+Result
+
+    // Alice
