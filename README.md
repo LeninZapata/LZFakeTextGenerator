@@ -109,3 +109,24 @@ echo $FAKE->get_password(null, true); // Result: 477074e4b10ed058a0a27e15f902f86
 ```
 ---
 
+**Get a random Decimal**
+
+To get a random decimal you must use this function `get_decimal( $type )`
+
+###### PARAMETERS 
+
+> **$min** | int |  Default: ```0```:  The minimum value that can be generated.
+
+> **$max** | int |  Default: ```110```:  The maximum value that can be generated.
+
+> **$precision** | int |  Default: ```2```:  Number of decimals that the generated number will have.
+
+###### EXAMPLE
+
+```php
+echo $FAKE->get_decimal(); // Result: 86.67
+echo $FAKE->get_decimal(1000); // Result: 1047.23
+echo $FAKE->get_decimal(100,1000); // Result: 815.48
+echo $FAKE->get_decimal(100,200,4); // Result: 170.9588
+```
+---
