@@ -7,7 +7,7 @@ If you have my same need, **feel free to use this class for your test purpose**.
 
 ## Examples of how to use its benefits
 
-**Get a random Name**
+### Get a random Name
 
 To get a random name we just have to use the function `get_name`.
 
@@ -29,7 +29,7 @@ Result
 ```
 
 ---
-**Get a random Last Name**
+### Get a random Last Name
 
 To get a random last name you must use the function `get_lastname()`
 
@@ -38,7 +38,7 @@ echo $FAKE->get_lastname(); // Result: Hamilton
 ```
 
 ---
-**Get a random Username**
+### Get a random Username
 
 To obtain a random username we must reference the function `get_username( $uppercase, $separator )`
 
@@ -57,7 +57,7 @@ echo $FAKE->get_username( FALSE, '.' ); // Result: zofia.wilkerson
 echo $FAKE->get_username( TRUE, '_' ); // Result: Zofia_Wilkerson
 ```
 ---
-**Get a random Email**
+### Get a random Email
 
 To get a random email you must use this function `get_email( $input )`
 
@@ -73,7 +73,7 @@ echo $FAKE->get_email('MyCustomNameEmail'); // Result: MyCustomNameEmail@hotmail
 ```
 ---
 
-**Get a random Credit Card**
+### Get a random Credit Card
 
 To get a random credit card you must use this function `get_credit_card( $type )`
 
@@ -90,7 +90,8 @@ echo $FAKE->get_credit_card('visa'); // Result: 4532839169305042
 echo $FAKE->get_credit_card('mastercard'); // Result: 5443801887099401
 ```
 ---
-**Get a Password**
+
+### Get a Password
 
 To get a password you must use this function `get_password( $input, $long )`
 
@@ -109,7 +110,7 @@ echo $FAKE->get_password(null, true); // Result: 477074e4b10ed058a0a27e15f902f86
 ```
 ---
 
-**Get a random Decimal**
+### Get a random Decimal
 
 To get a random decimal you must use this function `get_decimal( $type )`
 
@@ -117,7 +118,7 @@ To get a random decimal you must use this function `get_decimal( $type )`
 
 > **$min** | int |  Default: ```0```:  The minimum value that can be generated.
 
-> **$max** | int |  Default: ```110```:  The maximum value that can be generated.
+> **$max** | int |  Default: ```100```:  The maximum value that can be generated.
 
 > **$precision** | int |  Default: ```2```:  Number of decimals that the generated number will have.
 
@@ -128,5 +129,53 @@ echo $FAKE->get_decimal(); // Result: 86.67
 echo $FAKE->get_decimal(1000); // Result: 1047.23
 echo $FAKE->get_decimal(100,1000); // Result: 815.48
 echo $FAKE->get_decimal(100,200,4); // Result: 170.9588
+```
+---
+
+### Get a random Word
+
+To get a word you must use this function `get_word()`
+
+###### EXAMPLE
+
+```php
+echo $FAKE->get_word(); // Result: fringilla
+```
+---
+
+
+### Get a random Words
+
+To get a words you must use this function `get_words( $num )`
+
+###### PARAMETERS 
+
+> **$num** | int |  Default: ```2```:  Number of words to display.
+
+###### EXAMPLE
+
+```php
+echo $FAKE->get_words(); // Result: multatione suis
+echo $FAKE->get_words(5); // Result: Audire cy option Sen ferro urna rhoncusmaecenas venenatis
+```
+---
+
+### Get a random Words
+
+To get a sentence you must use this function `get_sentence( $min, $max, $withSemiPunctuation )`
+
+###### PARAMETERS 
+
+> **$min** | int |  Default: ```5```:  The minimum number of words for the phrase.
+
+> **$max** | int |  Default: ```10```:  The maximum number of words for the phrase.
+
+> **$withSemiPunctuation** | int |  Default: ```false```:  If this TRUE then the phrase can have "," as a word separator (it is a possibility, this sign is random)
+
+###### EXAMPLE
+
+```php
+echo $FAKE->get_sentence(); // Result: Day rec pen acciderat egestasmauris Interdum Aliquet ny light duimauris
+echo $FAKE->get_sentence(8,18,true); // Result: Porta, actique iaculis valuisset erga, propinquitate, eget felissed hibernas humanitatisque
 ```
 ---
