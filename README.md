@@ -3,6 +3,25 @@ Hi, I'm Lenin, and I dared to create this class that will allow you to generate 
 
 > STOP KILLING YOU THINKING THAT INFORMATION ABOUT NAMES, LAST NAMES, USERS, EMAILS, CREDIT CARD, TEXT IN GENERAL, DECIMALS, ETC ... THIS LIBRARY WILL DO IT FOR YOU 😄
 
+## LZFakeTextGenerator vs Other generators
+
+| Features                     | LZFakeTextGenerator | Other generators
+|:-----------------------------|:------------------:|:-----------------:
+| Names                        | :heavy_check_mark: | :heavy_minus_sign:
+| Last Names                   | :heavy_check_mark: | :heavy_minus_sign:
+| Users                        | :heavy_check_mark: | :heavy_minus_sign:
+| Emails                       | :heavy_check_mark: | :heavy_minus_sign:
+| Decimals                     | :heavy_check_mark: | :x:
+| Ip v4 & v6                   | :heavy_check_mark: | :x:
+| Credit Cards                 | :heavy_check_mark: | :x:
+| Word                         | :heavy_check_mark: | :x:
+| Words                        | :heavy_check_mark: | :x:
+| Sentences                    | :heavy_check_mark: | :x:
+| Paragraph                    | :heavy_check_mark: | :x:
+| Paragraphs                   | :heavy_check_mark: | :x:
+| HTML tag inline              | :heavy_check_mark: | :x:
+| HTML tag block               | :heavy_check_mark: | :x:
+
 If you have my same need, **feel free to use this class for your test purpose**. I will update it every time I need a new random field value for my tests.
 
 ## Examples of how to use its benefits
