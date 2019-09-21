@@ -375,3 +375,9 @@ Result:
 ....... full html text ....
 */
 ```
+
+## Support
+If you have any doubt, suggestion or report a bug, don't hesitate to write me in the [github](https://github.com/LeninZapata/LZFakeTextGenerator/issues) issues section.
+
+## License
+This framework is licensed 100% GPL.
