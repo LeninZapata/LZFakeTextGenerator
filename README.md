@@ -44,7 +44,7 @@ echo $FAKE->get_name();
 Result
 
 ```php
-// Alice 
+// Alice
 ```
 
 ---
@@ -80,7 +80,7 @@ echo $FAKE->get_username( TRUE, '_' ); // Result: Zofia_Wilkerson
 
 To get a random email you must use this function `get_email( $input )`
 
-###### PARAMETERS 
+###### PARAMETERS
 
 > **$input** | string |  Default: ```NULL``` Generate an email with the name you put in this field, if you leave it empty then it will put a random name.
 
@@ -96,7 +96,7 @@ echo $FAKE->get_email('MyCustomNameEmail'); // Result: MyCustomNameEmail@hotmail
 
 To get a random credit card you must use this function `get_credit_card( $type )`
 
-###### PARAMETERS 
+###### PARAMETERS
 
 > **$type** | string |  Default: ```NULL```: You can specify the type of card you want to generate. Currently supports. ```visa
 mastercard|amex|discover|enroute|jbc|voyager```. If you leave it empty then it will generate a random type of credit card type.
@@ -114,7 +114,7 @@ echo $FAKE->get_credit_card('mastercard'); // Result: 5443801887099401
 
 To get a password you must use this function `get_password( $input, $long )`
 
-###### PARAMETERS 
+###### PARAMETERS
 
 > **$input** | string |  Default: ```NULL```: If you leave it empty it generates a solid password according to the time the function ```time()```, If you enter a string then it generates a fixed password based on that string.
 
@@ -133,7 +133,7 @@ echo $FAKE->get_password(null, true); // Result: 477074e4b10ed058a0a27e15f902f86
 
 To get a random decimal you must use this function `get_decimal( $type )`
 
-###### PARAMETERS 
+###### PARAMETERS
 
 > **$min** | int |  Default: ```0```:  The minimum value that can be generated.
 
@@ -167,7 +167,7 @@ echo $FAKE->get_word(); // Result: fringilla
 
 To get a words you must use this function `get_words( $num )`
 
-###### PARAMETERS 
+###### PARAMETERS
 
 > **$num** | int |  Default: ```2```:  Number of words to display.
 
@@ -183,7 +183,7 @@ echo $FAKE->get_words(5); // Result: Audire cy option Sen ferro urna rhoncusmaec
 
 To get a sentence you must use this function `get_sentence( $min, $max, $withSemiPunctuation )`
 
-###### PARAMETERS 
+###### PARAMETERS
 
 > **$min** | int |  Default: ```5```:  The minimum number of words for the phrase.
 
@@ -204,7 +204,7 @@ echo $FAKE->get_sentence(8,18,true); // Result: Porta, actique iaculis valuisset
 
 To get a paragraph you must use this function `get_paragraph( $length, $semiPunctuation )`
 
-###### PARAMETERS 
+###### PARAMETERS
 
 > **$length** | string or int |  Default: ```medium```:  Number of sentences generated to form a paragraph, supports `short` values, few sentences, `medium`, some more sentences, `long` forms a large paragraph of many sentences. You can also put a number and indicate that you want an exact number of sentences to form the paragraph size you want.
 
@@ -217,40 +217,40 @@ To get a paragraph you must use this function `get_paragraph( $length, $semiPunc
 ```php
 echo $FAKE->get_paragraph();
 /*
-Result: 
-Prodisset Temptasse adsistendo quorum enimaliquam: Eget mer mortalis ket Inclitis! Nobis latera nimia 
-adsistendo asperitate phasellus Insuperabilis maecenas; Maritus Asperitate ipsum Antehac subditicii 
-Be lenitate. Exerci Fer accumsannulla minulla netus. Kasd Illum Accumsan excogitatum impie civili 
+Result:
+Prodisset Temptasse adsistendo quorum enimaliquam: Eget mer mortalis ket Inclitis! Nobis latera nimia
+adsistendo asperitate phasellus Insuperabilis maecenas; Maritus Asperitate ipsum Antehac subditicii
+Be lenitate. Exerci Fer accumsannulla minulla netus. Kasd Illum Accumsan excogitatum impie civili
 Fore suscipit; Quammaecenas en Mag domus non caesare di blandit eu;
 */
 
 echo $FAKE->get_paragraph('long',true);
 /*
-Result: 
-Malesuada His antehac accumsan, rutrum suspicionum clam rumores litora! El lenitate, 
-sodales post discentes missa ta Vilitate imperdietaliquam y; Esse Ted eminuit cernebatur 
-mipellentesque; Saevientis, Volutpatut Fermentumfusce praeter ap. Fusce suadendo ble 
-dissimulanter malesuadanullam legum; Vitae quaedam praescriptis augue, himenaeos. Nal 
-ple potius, habitant Minulla similia animis opulentae suspicionum! Enim co Es pos nullam, 
-mortalis habitant; Ny loqui nebulas adultae vel terminos amet gallienus ern; Daq suscipit Velut 
-fastus excogitatum parietes Facilisi ridiculus? Se, convallis an In pres suae es, quod nostra. 
-Aetatis opulentae, co eventus clangore! Vel Iriure Erga pen urbe puniti intromissi aliquando 
-Esse auctormauris; Vulputate or facilisinam fermentumfusce facinora an; Vesperi Si gallienus 
-Ture imperatoris Viam Factitasse caesaris minim. Tempus stipe dira, extorres sup vero cessante 
-at putabat converso! Tamquam Letali, mauris turgida commodo out quaeritando Gravida, tle; Ar 
-timebantur tristique arcu quam imperdiet ies regiam! Elementum dicitur er acervis Comitem, 
+Result:
+Malesuada His antehac accumsan, rutrum suspicionum clam rumores litora! El lenitate,
+sodales post discentes missa ta Vilitate imperdietaliquam y; Esse Ted eminuit cernebatur
+mipellentesque; Saevientis, Volutpatut Fermentumfusce praeter ap. Fusce suadendo ble
+dissimulanter malesuadanullam legum; Vitae quaedam praescriptis augue, himenaeos. Nal
+ple potius, habitant Minulla similia animis opulentae suspicionum! Enim co Es pos nullam,
+mortalis habitant; Ny loqui nebulas adultae vel terminos amet gallienus ern; Daq suscipit Velut
+fastus excogitatum parietes Facilisi ridiculus? Se, convallis an In pres suae es, quod nostra.
+Aetatis opulentae, co eventus clangore! Vel Iriure Erga pen urbe puniti intromissi aliquando
+Esse auctormauris; Vulputate or facilisinam fermentumfusce facinora an; Vesperi Si gallienus
+Ture imperatoris Viam Factitasse caesaris minim. Tempus stipe dira, extorres sup vero cessante
+at putabat converso! Tamquam Letali, mauris turgida commodo out quaeritando Gravida, tle; Ar
+timebantur tristique arcu quam imperdiet ies regiam! Elementum dicitur er acervis Comitem,
 supprimerent lobortisetiam Lo ci: Fulgorem, sen nuntiabant, hostilia urnamorbi aptent suspendisse
-mu palabatur. Esse enimsed, ta, plus stimulos; Subditicii quis erat praesente po gementibus 
+mu palabatur. Esse enimsed, ta, plus stimulos; Subditicii quis erat praesente po gementibus
 conspicuum aenean ning lacinia.
 */
 ```
---- 
+---
 
 ### Get a random Paragraphs
 
 To get a paragraphs you must use this function `get_paragraphs( $num, $length, $semiPunctuation )`
 
-###### PARAMETERS 
+###### PARAMETERS
 > **$num** | int |  Default: ```3```: Exact number of paragraphs you want me to generate. Each paragraph is wrapped by the html equiquette `<p></p>`
 
 > **$length** | string or int |  Default: ```medium```: Number of sentences generated to form a paragraph, supports `short` values, few sentences, `medium`, some more sentences, `long` forms a large paragraph of many sentences. You can also put a number and indicate that you want an exact number of sentences to form the paragraph size you want.
@@ -262,39 +262,39 @@ To get a paragraphs you must use this function `get_paragraphs( $num, $length, $
 ```php
 echo $FAKE->get_paragraphs();
 /*
-Result: 
-<p>Honoratorum ultriciespellentesque dapibusnam conpluribus uxor noxii Regiam germanitate putabat solet; Vel 
-temporis col quisque miseriarum formula tortorcurabitur calumnias: Feminea proin missa curabitur diam; Dictumst 
-clematius utilia liber metus molestie platea seria? Agebat Nobis luctus aptent Audire nondonec: Lec facer se 
-Citerioris amet. Suadendo dictumstvivamus reducere, mi stirpis animis; Emensos gallienus co sion cuiusdam, 
-Com car damnabantur. Egestas, erga est misceri, dierum urnamorbi quaeritando Sentiret caesaris. Se, Ametduis 
-Illum insontibus Rebus A! Ut nascetur per, dictumstvivamus sen missa inclitis zzril te pellentesque! Iam, 
-Tempestates dif iunxerat e miseriarum faucibusvestibulum Quam nefanda cuius! Antiochiae agenda megaera deberet 
+Result:
+<p>Honoratorum ultriciespellentesque dapibusnam conpluribus uxor noxii Regiam germanitate putabat solet; Vel
+temporis col quisque miseriarum formula tortorcurabitur calumnias: Feminea proin missa curabitur diam; Dictumst
+clematius utilia liber metus molestie platea seria? Agebat Nobis luctus aptent Audire nondonec: Lec facer se
+Citerioris amet. Suadendo dictumstvivamus reducere, mi stirpis animis; Emensos gallienus co sion cuiusdam,
+Com car damnabantur. Egestas, erga est misceri, dierum urnamorbi quaeritando Sentiret caesaris. Se, Ametduis
+Illum insontibus Rebus A! Ut nascetur per, dictumstvivamus sen missa inclitis zzril te pellentesque! Iam,
+Tempestates dif iunxerat e miseriarum faucibusvestibulum Quam nefanda cuius! Antiochiae agenda megaera deberet
 novo no. Imperdietaliquam Ad pars, subditicii inceptos crimina Cit ters.</p>
 
-<p>Tions hiscere Accumsannulla illa honoratorum stirpis, pernoctantium hi Ob Dis. Es Tamquam aestimati, animis 
-diaminteger! Agebat, is constantini quaeritando no mi confestim Susurrasset! Calumnias i postremo can conscii? 
-Curabitur aptent clam Honoratum erga Facilisis, senectus scelerisque,? Omnino morbi bonorum maritus 
-temporsuspendisse. Invitis sit soluta perpetratum ca: Daq tempestates soli lectus diam paulatim Tle ence,; 
-Maurisaenean platea eventus tortorvestibulum fecere lacus conpita confidenter contactus possim: Can quicquid 
+<p>Tions hiscere Accumsannulla illa honoratorum stirpis, pernoctantium hi Ob Dis. Es Tamquam aestimati, animis
+diaminteger! Agebat, is constantini quaeritando no mi confestim Susurrasset! Calumnias i postremo can conscii?
+Curabitur aptent clam Honoratum erga Facilisis, senectus scelerisque,? Omnino morbi bonorum maritus
+temporsuspendisse. Invitis sit soluta perpetratum ca: Daq tempestates soli lectus diam paulatim Tle ence,;
+Maurisaenean platea eventus tortorvestibulum fecere lacus conpita confidenter contactus possim: Can quicquid
 de placerat egestas, procurrens extorres illa.</p>
 
-<p>Tu acerbitati terminos facilisinam mis trudebat adolescebat possim main non,; Libero delictorum doming 
-referente latera tri trudebat, impie expeditionis ex! Nihil esse tle Potestatis regina nequeetiam, leo 
-germanitate! Calumnias, cras i semvestibulum ings low nisised Lar risus, felissed! Possim fecere quorum 
-perpensum auctormauris audire aliquyam inceptos? Urnamorbi autem orci fermentum tempestates, megaera 
-saltuporta: Valuisset Risus Dierum Po in curabitur si quae. Primis Sea misceri constantini nonumy. Bonorum 
-honoratorum postridie sur Avida Supergressa. Arcu Filio, pulvinar maecenas Felicitatis risusdonec Vehicula: 
+<p>Tu acerbitati terminos facilisinam mis trudebat adolescebat possim main non,; Libero delictorum doming
+referente latera tri trudebat, impie expeditionis ex! Nihil esse tle Potestatis regina nequeetiam, leo
+germanitate! Calumnias, cras i semvestibulum ings low nisised Lar risus, felissed! Possim fecere quorum
+perpensum auctormauris audire aliquyam inceptos? Urnamorbi autem orci fermentum tempestates, megaera
+saltuporta: Valuisset Risus Dierum Po in curabitur si quae. Primis Sea misceri constantini nonumy. Bonorum
+honoratorum postridie sur Avida Supergressa. Arcu Filio, pulvinar maecenas Felicitatis risusdonec Vehicula:
 Pi Vox ornare reducere per se.</p>
 */
 ```
---- 
+---
 
 ### Insert HTML Tag inline into a text (any)
 
 To insert html tag inline you just have to execute this function `set_tag_inline( $text, $tags, $strict )`, what inline tag that currently supports are: `a` `strong` `em` `i` `mark` `code` within the function you must declare in the ```$tag``` variable the tags that you want to be mixed randomly within the paragraph.
 
-###### PARAMETERS 
+###### PARAMETERS
 > **$text** | string |  Default: ```''```: Character string required to insert HTML tags.
 
 > **$tags** | array |  Default: ```[]```: Inline tag you want to insert. Supports `a` `strong` `em` `i` `mark` `code`
@@ -306,48 +306,48 @@ To insert html tag inline you just have to execute this function `set_tag_inline
 ```php
 echo $FAKE->set_tag_inline( 'This is my text that I want to mix randomly with HTML inline tag.', ['a'] );
 /*
-Result: 
+Result:
 This is my <a href="#">text that</a>  I want to mix randomly with HTML inline tag
 */
 
 echo $FAKE->set_tag_inline( $FAKE->get_sentence(10,20), ['a','strong','mark'] );
 /*
-Result: 
+Result:
 Te Aptent et sagittis amore <em>Rhoncusmaecenas <strong>get augue eminuit
 </strong></em><strong> sadipscing committerentur <a href="#">morbi velut</a></strong>
 */
 
 echo $FAKE->set_tag_inline( $FAKE->get_paragraph('long',true), $FAKE->tag_inline_support, true );
-/* 
+/*
 NOTE: If you want to use all available inline tags you can use the $tag_inline_support variable
 
 Result:
-Secreto mariti taciti minulla orientis! Possim converso, <mark>lo Non est Te. Inclitis contactus, 
-e obstinatum,</mark> pulvinarvestibulum primitiis pen; Stimulos montes interdum iamque Consectetur. 
+Secreto mariti taciti minulla orientis! Possim converso, <mark>lo Non est Te. Inclitis contactus,
+e obstinatum,</mark> pulvinarvestibulum primitiis pen; Stimulos montes interdum iamque Consectetur.
 Vesperi Formula felissed eget <strong>dapibusnam facti! Stationes donec, bonorum elit periculorum
-</strong> ies temporis! Sanctus regni sermone te enimnulla id. Donec mazim fortunas habitu Sedisset 
-facilisi molestie magnainteger ty; Non duimauris possim nec urnapraesent sem qui antesuspendisse, 
+</strong> ies temporis! Sanctus regni sermone te enimnulla id. Donec mazim fortunas habitu Sedisset
+facilisi molestie magnainteger ty; Non duimauris possim nec urnapraesent sem qui antesuspendisse,
 Avida ny. Men but eratproin imperator stationes par. <i>Caesaris pi suis elitnunc sadipscing primis
 </i> suae accumsannulla. De vatibus Temporis flagitium Perpetratum el. Felicitatis augue I permissus
-facilisisat Arcanorum; Placerat lacus placentia Saevientis ly saevientis <code>converso laoreet! 
+facilisisat Arcanorum; Placerat lacus placentia Saevientis ly saevientis <code>converso laoreet!
 Justo felicitatis ings nobis conubia Paulatim hiscere</code> pervadendoque exitium, ignoti! Nimia,
-flagrans al, loqui crudelitati alii rhoncusmaecenas eleifend clam Feugait; Eruditiores Men 
-<a href="#">sub sibi voluptua gementibus parum velut,: <em>Bonorum, sollicitudin nibh</em></a><em> 
-un di</em> pre Graeco suetos sapien cruoris! Facilisi, non mu ligula quae out. Congue luce consequatduis 
-insontibus nefanda in graeco. Quorum Phasellus, quisaenean tubarum insuperabilis lacus? Latenter Quae 
-turgida Versutosque nec Ipsuminteger Vitae aliquando mon Vulputate. Per light, contemplans Vero 
-addere,: Monili palam antesuspendisse claudebantur se. Er for consecteturpraesent agenda, urbe cum 
-hibernas cognita artium telluspraesent: Vel rebum dy inire, feliscras aliquotiens mediocrium et, dolore 
+flagrans al, loqui crudelitati alii rhoncusmaecenas eleifend clam Feugait; Eruditiores Men
+<a href="#">sub sibi voluptua gementibus parum velut,: <em>Bonorum, sollicitudin nibh</em></a><em>
+un di</em> pre Graeco suetos sapien cruoris! Facilisi, non mu ligula quae out. Congue luce consequatduis
+insontibus nefanda in graeco. Quorum Phasellus, quisaenean tubarum insuperabilis lacus? Latenter Quae
+turgida Versutosque nec Ipsuminteger Vitae aliquando mon Vulputate. Per light, contemplans Vero
+addere,: Monili palam antesuspendisse claudebantur se. Er for consecteturpraesent agenda, urbe cum
+hibernas cognita artium telluspraesent: Vel rebum dy inire, feliscras aliquotiens mediocrium et, dolore
 conspiratione: Peragranter auctorem ad lacusut rhoncus magnapraesent e, nunc.
 ```
 
---- 
+---
 
 ### Insert HTML Tag Block into a text (any)
 
 To insert html tag block you just have to execute this function `set_tag_block( $text, $tags, $strict )`, what inline tag that currently supports are: `ul` `lo` `dl` `blockquote` `h` `pre` within the function you must declare in the ```$tag``` variable the tags that you want to be mixed randomly within the paragraph.
 
-###### PARAMETERS 
+###### PARAMETERS
 > **$text** | string |  Default: ```''```: Character string required to insert HTML tags.
 
 > **$tags** | array |  Default: ```[]```: Inline tag you want to insert. Supports `ul` `lo` `dl` `blockquote` `h` `pre`
