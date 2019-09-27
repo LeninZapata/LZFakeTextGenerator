@@ -6,7 +6,8 @@
  * of words or sentences.
  *
  * @author  Lenin Zapata
- * @version 1.0     2019-09-15      Release
+ * @since   1.0     2019-09-15      Release
+ * @version 1.1     2019-09-27
  *
  * ╔══╗
  * ╚╗╔╝
@@ -18,6 +19,8 @@ final class LZFakeTextGenerator {
     /**
      * Class constant
      * @since   1.0     2019-09-15      Release
+     * @since   1.1     2019-09-27      - Se agrego 'div' como tag block
+     *                                  - Se agrego comentarios de numeros de constantes
      * @var     consts
      */
     const
@@ -36,15 +39,15 @@ final class LZFakeTextGenerator {
     DEFAULT_SEMI_PUNCTUATION_MARKS  = [',', ],
     DEFAULT_FINAL_PUNCTUATION_MARKS = '.',
     //|
-    TAG_SUPPORTED       = ['','a','strong','em','i','mark','code',],
-    TAG_BLOCK_SUPPORTED = ['','ul','lo','dl','blockquote','h26','h','pre'],
-    FREQUENCY_RELATIVE  = [
+    TAG_SUPPORTED       = ['','a','strong','em','i','mark','code',], // 6 tags inline
+    TAG_BLOCK_SUPPORTED = ['','ul','lo','dl','blockquote','h26','heading','h','pre','div'], // 7 tags block
+    FREQUENCY_RELATIVE  = [ // 4 frecuencias establecidas aleatorias
         'very-low' => 10,
         'low'      => 25,
         'medium'   => 50,
         'high'     => 75
     ],
-    LENGTH_PARAGRAPH = [
+    LENGTH_PARAGRAPH = [ // 3 longitudes de tamaño de parrafos
         'short'  => '3|7',
         'medium' => '7|15',
         'long'   => '20|30',
@@ -737,15 +740,14 @@ final class LZFakeTextGenerator {
         'gmail','gmail','gmail','gmail','gmail','gmail',
         'infinito',
         'email',
-        'yahoo',
-        'yahoo',
+        'yahoo', 'yahoo',
         'gmx',
         'inbox',
         'yandex',
         'shortmail',
         'gmail','gmail','gmail','gmail','gmail','gmail'
     ],
-    DEFAULT_DOMAINS = [ // 8 domains
+    DEFAULT_DOMAINS = [ // 10 domains
         '.com', '.com', '.com', '.com','.com',
         '.net',
         '.it',
@@ -753,9 +755,11 @@ final class LZFakeTextGenerator {
         '.ec',
         '.es',
         '.org',
-        '.edu'
+        '.edu',
+        '.xyz',
+        '.us',
     ],
-    DEFAULT_CCARD = [
+    DEFAULT_CCARD = [ // 7 tipos de tarjetas de credito
         'visa'       => ["4539","4556","4916","4532","4929","40240071","4485","4716","4",],
         'mastercard' => ["51","52","53","54","55",],
         'amex'       => ["34","37",],
@@ -970,12 +974,14 @@ final class LZFakeTextGenerator {
      * by random calculation.
      *
      * @since   1.0         2019-09-16      Release
+     * @since   1.1         2019-09-27      - Actualizacion de comentarios de numeros de frecuencias
+     *                                      - Validacion de frecuencia para que permite solo cantidades de 1 - 100
      * @param   string|int  $frequency{
      *      @example
-     *          'very-low' = 15
-     *          'low'      = 30
-     *          'medium'   = 60
-     *          'high'     = 90
+     *          'very-low' = 10
+     *          'low'      = 25
+     *          'medium'   = 50
+     *          'high'     = 75
      *      @example
      *          1 - 100
      * }
@@ -995,7 +1001,7 @@ final class LZFakeTextGenerator {
                 throw new Exception('Invalidity frequency Only accepted: very-low, low, medium, high or number 1-100');
             }
         }elseif( is_numeric( $frequency ) ){
-            if( $frequency > 100 ){
+            if( $frequency > 100 || $frequency < 1 ){
                 throw new Exception('The frequency must be between a rand of the 1-100');
             }
             $value_random = rand(1,100);
@@ -1058,7 +1064,6 @@ final class LZFakeTextGenerator {
         // Validate if the html tag you want to add to the text is supported in this class
         if( count( array_intersect( $tag_to_use, self::TAG_SUPPORTED ) ) == 0 )  throw new Exception('You have assigned a tag that is not supported');
 
-        // OPTIMIZE: esta la frecuencia debe estar en un parametro porque esto es editable
         if( ! $strict ){
             // 20% chance that add an html tag
             if( self::frequency(20) ) return $sentences;
@@ -1113,6 +1118,7 @@ final class LZFakeTextGenerator {
      * Usually it has a display block in its envelope
      *
      * @since   1.0         2019-09-16      Release
+     * @since   1.1         2019-09-27      Se agrego el bloque DIV
      *
      * @param   array|mixed $content        Current content in which tags will be inserted
      * @return  array|mixed
@@ -1244,7 +1250,7 @@ final class LZFakeTextGenerator {
         $_html = '';
         // Validate if this tag is inserted or not in the content
         $tag_proceeds = ! $strict ? self::frequency() : true;
-        if( (in_array('h', $tags)||in_array('h26', $tags)) && $tag_proceeds ){
+        if( (in_array('h', $tags)||in_array('h26', $tags)||in_array('heading', $tags)) && $tag_proceeds ){
             foreach( range(2,6) as $heading ){
                 // 50% chance that this tag appeared in the total content
                 if( self::frequency() ){
@@ -1266,6 +1272,19 @@ final class LZFakeTextGenerator {
             // Between 10 and 25 characters
             $text = self::createSentence(10,25);
             $_html .= '<pre>'. $text .'</pre>';
+            // Insert the block into the content below a calculated random paragraph
+            $content = self::prefixInsertAfterParagraph( $_html, rand(1,count($content)) , $content);
+
+            $tag_proceeds = false; // Assign to the FALSE state to validate with the following tag
+        }
+
+        // BLOCK - Div
+        // Validate if this tag is inserted or not in the content
+        $tag_proceeds = ! $strict ? self::frequency() : true;
+        if( in_array('div', $tags) && $tag_proceeds ){
+            // Between 10 and 25 characters
+            $text = self::createSentence(10,25);
+            $_html .= '<div>'. $text .'</div>';
             // Insert the block into the content below a calculated random paragraph
             $content = self::prefixInsertAfterParagraph( $_html, rand(1,count($content)) , $content);
 
@@ -1786,6 +1805,18 @@ final class LZFakeTextGenerator {
                     : strtolower( self::get_name() . ' ' . self::get_lastname() );
         return  ! $separator ? str_replace( ' ', '', $username )
                 : str_replace( ' ', $separator, $username );
+    }
+
+    /**
+     * Retorna un server domain
+     * Can be customized or generated from those available
+     *
+     * @since   1.1     2019-09-21      Release
+     * @param   array   $avalible       Customizable Domains
+     * @return  string
+     */
+    public static function get_server_domain( $avalible = [] ){
+        return ! empty( $avalible ) ? array_rand( $avalible ) : self::getServerAndDomain();
     }
 
 }

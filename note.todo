@@ -1,8 +1,11 @@
 TODO:
     ☐ Add the terms section
-    ☐ Create cycle examples for (5000 records)
-    ☐ Create table examples full of fake content fields
-    ☐ Create the example of how it would be with mysql
+    ✔ Create cycle examples for (5000 records)  @done(19-09-27 18:13)
+    ☐ Create *table* examples full of fake content fields @critical
+    ✔ Create the example of how it would be with mysql @done(19-09-27 18:15)
+    ☐ Add domains, for that you must add company names
 
 Correcciones:
     ☐ make the correction of digits of credit cards
+    ☐ En el meta HTML existe el que es DIV
+    pero este LZFAKETEXTGENERATOR aun no genera, debes agregarlo a la libreria
