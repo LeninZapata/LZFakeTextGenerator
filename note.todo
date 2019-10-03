@@ -4,8 +4,15 @@ TODO:
     ☐ Create *table* examples full of fake content fields @critical
     ✔ Create the example of how it would be with mysql @done(19-09-27 18:15)
     ☐ Add domains, for that you must add company names
+    ☐ Add HTML Table simple and complete (is a block)
+    ☐ Add HTML pre&code join with Code real generic
+    ☐ Dentro del <blockquote> el cite debe hacer aleatorio porque no siempre van
 
 Correcciones:
     ☐ make the correction of digits of credit cards
-    ☐ En el meta HTML existe el que es DIV
+    ✔ En el meta HTML existe el que es DIV @done(19-09-28 12:58)
     pero este LZFAKETEXTGENERATOR aun no genera, debes agregarlo a la libreria
+    ☐ Dentro del blockquote va un <p>
+
+Investigar:
+    ☐ Investigar y testear esta funcion *array_replace_recursive*

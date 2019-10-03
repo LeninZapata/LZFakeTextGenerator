@@ -19,9 +19,10 @@ final class LZFakeTextGenerator {
     /**
      * Class constant
      * @since   1.0     2019-09-15      Release
-     * @since   1.1     2019-09-27      - Se agrego 'div' como tag block
-     *                                  - Se agrego comentarios de numeros de constantes
+     * @since   1.1     2019-09-27      - It was added 'div' como tag block
+     *                                  - It was added comentarios de numeros de constantes
      * @var     consts
+     *
      */
     const
     UNIT_SENTENCE = 'sentence',
@@ -39,15 +40,15 @@ final class LZFakeTextGenerator {
     DEFAULT_SEMI_PUNCTUATION_MARKS  = [',', ],
     DEFAULT_FINAL_PUNCTUATION_MARKS = '.',
     //|
-    TAG_SUPPORTED       = ['','a','strong','em','i','mark','code',], // 6 tags inline
-    TAG_BLOCK_SUPPORTED = ['','ul','lo','dl','blockquote','h26','heading','h','pre','div'], // 7 tags block
-    FREQUENCY_RELATIVE  = [ // 4 frecuencias establecidas aleatorias
+    TAG_SUPPORTED       = ['','a','strong','em','i','mark','code','img'], // 6 tags inline
+    TAG_BLOCK_SUPPORTED = ['','ul','lo','dl','blockquote','h26','heading','h','pre','div','img','hr'], // 7 tags block
+    FREQUENCY_RELATIVE  = [ // 4 random set frequencies
         'very-low' => 10,
         'low'      => 25,
         'medium'   => 50,
         'high'     => 75
     ],
-    LENGTH_PARAGRAPH = [ // 3 longitudes de tamaño de parrafos
+    LENGTH_PARAGRAPH = [ // 3 lengths of paragraphs size
         'short'  => '3|7',
         'medium' => '7|15',
         'long'   => '20|30',
@@ -759,7 +760,7 @@ final class LZFakeTextGenerator {
         '.xyz',
         '.us',
     ],
-    DEFAULT_CCARD = [ // 7 tipos de tarjetas de credito
+    DEFAULT_CCARD = [ // 7 tipos de tarjetas de credito // FIXME: poner el comentario a español
         'visa'       => ["4539","4556","4916","4532","4929","40240071","4485","4716","4",],
         'mastercard' => ["51","52","53","54","55",],
         'amex'       => ["34","37",],
@@ -767,6 +768,21 @@ final class LZFakeTextGenerator {
         'enroute'    => ["2014","2149",],
         'jbc'        => ["35",],
         'voyager'    => ["8699",],
+    ],
+    DEFAULT_IMAGES = [
+        'C:\\Users\\Lenin\\Documents\\Downloads\\vscodebg1.jpg',
+        'C:\\Users\\Lenin\\Documents\\Downloads\\vscodebg2.jpg',
+        'C:\\Users\\Lenin\\Documents\\Downloads\\vscodebg3.jpg',
+        'C:\\Users\\Lenin\\Documents\\Downloads\\vscodebg4.jpg',
+        'C:\\Users\\Lenin\\Documents\\Downloads\\vscodebg5.jpg',
+        'C:\\Users\\Lenin\\Documents\\Downloads\\vscodebg6.jpg',
+        'C:\\Users\\Lenin\\Documents\\Downloads\\vscodebg7.jpg',
+        'C:\\Users\\Lenin\\Documents\\Downloads\\vscodebg8.jpg',
+        'C:\\Users\\Lenin\\Documents\\Downloads\\vscodebg9.jpg',
+    ],
+    DEFAULT_IMAGE_ALIGN = [
+        'LEFT'  => ' class_image_left ',
+        'RIGHT' => ' class_image_right ',
     ];
 
     private static
@@ -812,7 +828,7 @@ final class LZFakeTextGenerator {
     /**
      * Current tag that is running, usually it is needed to close the tag
      * @since   1.0     2019-09-15      Release
-     * @var     string
+     * @var     array
      */
     $currenTag,
     /**
@@ -827,21 +843,31 @@ final class LZFakeTextGenerator {
      * @since   1.0     2019-09-15      Release
      * @var     array
      */
-    $frequency = self::FREQUENCY_RELATIVE;
+    $frequency = self::FREQUENCY_RELATIVE,
+    /**
+     * Alineacion a la izquierda // FIXME: documentar esta funcion
+     */
+    $img_align_left = self::DEFAULT_IMAGE_ALIGN['LEFT'],
+    /**
+     * Alineacion a la izquierda // FIXME: documentar esta funcion
+     */
+    $img_align_right = self::DEFAULT_IMAGE_ALIGN['RIGHT'];
 
     public
     /**
      * The block type tags it supports
      * @since   1.0     2019-09-17      Release
+     * @since   1.1     2019-09-27      Se cambio de la variable
      * @var     array
-     */
-    $tag_block_support = self::TAG_BLOCK_SUPPORTED,
+     */// FIXME: poner el comentario a español
+    $all_tag_block_supported = self::TAG_BLOCK_SUPPORTED,
     /**
      * The inline type tags it supports
      * @since   1.0     2019-09-17      Release
+     * @since   1.1     I               Se cambio el nombre de la variable
      * @var     array
      */
-    $tag_inline_support = self::TAG_SUPPORTED;
+    $all_tag_inline_supported = self::TAG_SUPPORTED;
 
 
 
@@ -964,6 +990,7 @@ final class LZFakeTextGenerator {
         return self::$semiPunctuationMarks[rand(0, count(self::$semiPunctuationMarks) - 1)];
     }
 
+    // FIXME: comentar esta funcion
     private static function array_rand_slice( array $array, $num = 2){
         shuffle( $array );
         return array_slice( $array, 0, $num);
@@ -973,7 +1000,7 @@ final class LZFakeTextGenerator {
      * Calculate the frequency at which an action can be repeated
      * by random calculation.
      *
-     * @since   1.0         2019-09-16      Release
+     * @since   1.0         2019-09-16      Release // FIXME: poner el comentario a español
      * @since   1.1         2019-09-27      - Actualizacion de comentarios de numeros de frecuencias
      *                                      - Validacion de frecuencia para que permite solo cantidades de 1 - 100
      * @param   string|int  $frequency{
@@ -1101,11 +1128,11 @@ final class LZFakeTextGenerator {
                 $length_end = $length_init + $to >= $length_max ? $length_max : $length_init + $to;
 
                 // Assign the current tag you are working with
-                self::$currenTag = $tag;
+                self::$currenTag[] = $tag;
 
                 // Edit the words of the initial and final index with the loop tag
                 $array_sentences[ $length_init ] = self::openAndCloseInlineTag($tag) . $array_sentences[ $length_init ];
-                $array_sentences[ $length_end ] =  $array_sentences[ $length_end ] . self::openAndCloseInlineTag($tag, 0);
+                $array_sentences[ $length_end ]  = $array_sentences[ $length_end ] . self::openAndCloseInlineTag($tag, 0);
             }
 
         }
@@ -1118,7 +1145,7 @@ final class LZFakeTextGenerator {
      * Usually it has a display block in its envelope
      *
      * @since   1.0         2019-09-16      Release
-     * @since   1.1         2019-09-27      Se agrego el bloque DIV
+     * @since   1.1         2019-09-27      Se agrego el bloque DIV // FIXME: poner el comentario a español
      *
      * @param   array|mixed $content        Current content in which tags will be inserted
      * @return  array|mixed
@@ -1291,6 +1318,30 @@ final class LZFakeTextGenerator {
             $tag_proceeds = false; // Assign to the FALSE state to validate with the following tag
         }
 
+        // BLOCK - HR
+        // Validate if this tag is inserted or not in the content
+        $tag_proceeds = ! $strict ? self::frequency() : true;
+        if( in_array('hr', $tags) && $tag_proceeds ){
+            $_html .= '<hr />';
+            // Insert the block into the content below a calculated random paragraph
+            $content = self::prefixInsertAfterParagraph( $_html, rand(1,count($content)) , $content);
+
+            $tag_proceeds = false; // Assign to the FALSE state to validate with the following tag
+        }
+
+        // BLOCK - IMG
+        // Validate if this tag is inserted or not in the content
+        $tag_proceeds = ! $strict ? self::frequency() : true;
+        if( in_array('img', $tags) && $tag_proceeds ){
+            // Between 10 and 25 characters for alt
+            $alt    = self::createSentence(4,15);
+            $_html .= self::createImage( ['alt' => $alt, 'title'=> $alt], 'p' );
+            // Insert the block into the content below a calculated random paragraph
+            $content = self::prefixInsertAfterParagraph( $_html, rand(1,count($content)) , $content);
+
+            $tag_proceeds = false; // Assign to the FALSE state to validate with the following tag
+        }
+
         return $content;
     }
 
@@ -1358,8 +1409,14 @@ final class LZFakeTextGenerator {
      *      @example 2 Close the tag
      * }
      * @return  string
-     */
+     */ // FiXME: cambiarn en ingles esta funcion
     private static function openAndCloseInlineTag( $tag, $status = 1 ){
+
+        // Si tiene status == 0 es porqe va cerrar ese tag entonces lo quito de la matrix
+        // de tags abiertos.
+        if( $status == 0 ){
+            unset( self::$currenTag[$tag] );
+        }
 
         switch ($tag) {
             case 'a':
@@ -1374,6 +1431,11 @@ final class LZFakeTextGenerator {
                 return $status == 1 ? '<mark>' : '</mark>';
             case 'code':
                 return $status == 1 ? '<code>' : '</code>';
+            case 'img':
+                //if( count( self::$currenTag ) > 0 ) return '';
+                $alt   = self::createSentence( 4, 15 );
+                $align = self::get_align_image();
+                return $status == 1 ? self::createImage( ['alt' => $alt, 'title'=> $alt, 'class' => $align] ) : '';
             default:
                 return '';
             break;
@@ -1394,7 +1456,7 @@ final class LZFakeTextGenerator {
      * @return  string
      */
     private static function tag_generic( $status = 1, $tag = 'p' ){
-        return $status == 1 ? "<$tag>" : "</$tag>";
+        return $status == 1 ? "<{$tag}>" : "</{$tag}>";
     }
 
     /**
@@ -1445,16 +1507,6 @@ final class LZFakeTextGenerator {
         return self::get_string_paragraph( $sentence );
     }
 
-    public static function wrapParagraph( $sentence = '', $wrap = 'p' ){
-        // Correct the last character of the paragraph
-        $sentence = self::fixLastCharacterParagraph( $sentence );
-
-        // Insert HTML
-        $sentence = self::insertTagHTML( $sentence, ['a','strong','i','em','mark'] );
-
-        return self::tag_generic() . self::get_string_paragraph( $sentence ) . self::tag_generic(0);
-    }
-
     /**
      * Generate an IPV4
      *
@@ -1486,7 +1538,7 @@ final class LZFakeTextGenerator {
         if( $input ) return $input . '@' .self::getServerAndDomain();
 
         // Generate fake names
-        return  strtolower(  self::DEFAULT_NAMES[ rand( 0, count( self::DEFAULT_NAMES ) - 1 ) ] ) . '.' .
+        return  strtolower( self::DEFAULT_NAMES[ rand( 0, count( self::DEFAULT_NAMES ) - 1 ) ] ) . '.' .
                 strtolower( self::DEFAULT_LASTNAME[ rand( 0, count( self::DEFAULT_LASTNAME ) - 1 ) ] ) . '@' .
                 self::getServerAndDomain();
     }
@@ -1549,12 +1601,54 @@ final class LZFakeTextGenerator {
      *
      * @param array $prefixList Array prefix of the type of card required
      */
-    public static function creditCardNumber($prefix = '') {
+    private static function creditCardNumber($prefix = '') {
         $type = ! $prefix ? self::DEFAULT_CCARD[ array_rand(self::DEFAULT_CCARD) ] : self::DEFAULT_CCARD[$prefix];
         $new_compare = $prefix ? array_keys( self::DEFAULT_CCARD ) : ['visa'];
         if( $prefix && count( array_intersect( [$prefix], $new_compare ) ) == 0 )  throw new Exception('Credit Card Not Supported');
         $serie = $type[ array_rand( $type ) ];
         return self::CCcompletednumber($serie);
+    }
+
+    // FIXME: comentarios a este funcion
+    private function array_parse_args( &$args, $defaults ) {
+		$args     = (array) $args;
+		$defaults = (array) $defaults;
+		$result   = $defaults;
+		foreach ( $args as $k => &$v ) {
+			if ( is_array( $v ) && isset( $result[ $k ] ) ) {
+				$result[ $k ] = self::array_parse_args( $v, $result[ $k ] );
+			} else {
+				$result[ $k ] = $v;
+			}
+		}
+		return $result;
+	}
+
+    private static function createImage( array $attr = [], $tag_wrap = '' ){
+
+        $html     = '<img ';
+        $defaults = [
+            'src'    => self::DEFAULT_IMAGES[ rand( 0, count( self::DEFAULT_IMAGES ) - 1 ) ],
+            'alt'    => '',
+            'title'  => '',
+            'width'  => '',
+            'height' => '',
+            'class'  => '',
+        ];
+
+        $args = self::array_parse_args( $attr, $defaults );
+
+        if(  !empty( $args )  ){
+            foreach ($args as $key => $value) {
+                if( $value != '' &&  !empty( $value )  ){
+                    $html .= " {$key}='$value' ";
+                }
+            }
+        }
+
+        $html .=' />';
+
+        return $tag_wrap ? "<{$tag_wrap}>" . $html . "</{$tag_wrap}>" : $html;
     }
 
 
@@ -1585,7 +1679,7 @@ final class LZFakeTextGenerator {
 //              ▁ ▂ ▄ ▅ ▆ ▇ FRONTEND - PUBLIC ▇ ▆ ▅ ▄ ▂ ▁
 //        𝗽𝘂𝗯𝗹𝗶𝗰 𝗳𝘂𝗻𝗰𝘁𝗶𝗼𝗻𝘀 𝘁𝗵𝗮𝘁 𝘁𝗵𝗲 𝘂𝘀𝗲𝗿 𝗰𝗮𝗻 𝗮𝗰𝗰𝗲𝘀𝘀 𝗮𝗻𝗱 𝗺𝗮𝗻𝗶𝗽𝘂𝗹𝗮𝘁𝗲 𝗳𝗼𝗿 𝗲𝗮𝘀𝘆 𝘂𝘀𝗲
 //___________________________________________________________________________________
-
+    // FIXME: poner el comentario a español
     /**
      * Obtiene 1 palabra aleatoria
      *
@@ -1661,7 +1755,7 @@ final class LZFakeTextGenerator {
      * @param   bool    $semiPunctuation Indicates if the paragraph can be manipulated to add semifunctions
      * @return  string
      */
-    public static function get_paragraphs( $num = 3,  $length = 'medium', $semiPunctuation = true){
+    public static function get_paragraphs( $num = 3,  $length = 'medium', $semiPunctuation = true ){
         $paragraph = [];
         for( $i = 1; $i <= $num; $i++ ){
             $paragraph[] = self::get_paragraph( $length, $semiPunctuation );
@@ -1817,6 +1911,20 @@ final class LZFakeTextGenerator {
      */
     public static function get_server_domain( $avalible = [] ){
         return ! empty( $avalible ) ? array_rand( $avalible ) : self::getServerAndDomain();
+    }
+
+    public static function set_align_imagen( $value, $direction = 'left' ){
+        if( ! in_array( $direction, ['left','right'] ) ) throw new Exception('Invalid direction for align image, only allow "right"|"left" ');
+
+        if( $direction == 'left' ){
+            self::$img_align_left = $value;
+        }elseif( $direction == 'right' ){
+            self::$img_align_right = $value;
+        }
+    }
+
+    public static function get_align_image(){
+        return self::frequency() ? self::$img_align_left : self::$img_align_right;
     }
 
 }
