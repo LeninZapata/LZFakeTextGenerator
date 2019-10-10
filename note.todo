@@ -3,16 +3,18 @@ TODO:
     ✔ Create cycle examples for (5000 records)  @done(19-09-27 18:13)
     ☐ Create *table* examples full of fake content fields @critical
     ✔ Create the example of how it would be with mysql @done(19-09-27 18:15)
-    ☐ Add domains, for that you must add company names
+    ✔ Add domains, for that you must add company names @done(19-10-08 04:16)
     ☐ Add HTML Table simple and complete (is a block)
     ☐ Add HTML pre&code join with Code real generic
-    ☐ Dentro del <blockquote> el cite debe hacer aleatorio porque no siempre van
+    ✔ Within the <blockquote> the cite must make random because they do not always go @done(19-10-08 04:23)
 
 Correcciones:
-    ☐ make the correction of digits of credit cards
-    ✔ En el meta HTML existe el que es DIV @done(19-09-28 12:58)
-    pero este LZFAKETEXTGENERATOR aun no genera, debes agregarlo a la libreria
-    ☐ Dentro del blockquote va un <p>
+    ☐ The images do not have an official link yet, check this
+    ✔ make the correction of digits of credit cards @done(19-10-08 03:53)
+    ✔ In the HTML meta there is what is DIV @done(19-09-28 12:58)
+        but this LZFAKETEXTGENERATOR still does not generate, you must add it to the library
+    ✔ Inside the blockquote goes a <p> @done(19-10-08 03:54)
+    ☐ Documentation in readme of block image and also with its attributes and examples
 
 Investigar:
-    ☐ Investigar y testear esta funcion *array_replace_recursive*
+    ☐ Investigate and test this function *array_replace_recursive*

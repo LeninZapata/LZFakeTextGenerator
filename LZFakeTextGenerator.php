@@ -6,8 +6,7 @@
  * of words or sentences.
  *
  * @author  Lenin Zapata
- * @since   1.0     2019-09-15      Release
- * @version 1.1     2019-09-27
+ * @version 1.2 - 2019-10-09
  *
  * ╔══╗
  * ╚╗╔╝
@@ -40,8 +39,8 @@ final class LZFakeTextGenerator {
     DEFAULT_SEMI_PUNCTUATION_MARKS  = [',', ],
     DEFAULT_FINAL_PUNCTUATION_MARKS = '.',
     //|
-    TAG_SUPPORTED       = ['','a','strong','em','i','mark','code','img'], // 6 tags inline
-    TAG_BLOCK_SUPPORTED = ['','ul','lo','dl','blockquote','h26','heading','h','pre','div','img','hr'], // 7 tags block
+    TAG_SUPPORTED       = ['','a','strong','em','i','mark','code',], // 6 tags inline
+    TAG_BLOCK_SUPPORTED = ['','ul','lo','dl','blockquote','h26','heading','h','h1','h2','h3','h4','h5','h6','h7','pre','div','img','hr','table','pre-code'], // 7 tags block
     FREQUENCY_RELATIVE  = [ // 4 random set frequencies
         'very-low' => 10,
         'low'      => 25,
@@ -730,6 +729,234 @@ final class LZFakeTextGenerator {
         "Holt", "Bush", "Strauss", "Bass", "Shah", "Beatty", "Hanna", "Rose", "Ellington", "Flynn", "Dalton", "Jackson", "Jordan", "Atkinson", "Cohen", "Gibbons", "Ross", "Lanier",
         "Denton", "Marsh", "Leonard", "Coates", "Clarke", "Maxwell", "Harrington", "Talley", "Perry", "Zhou", "Cates", "Hancock", "Perry", "Thomson", "Carson", "Heller", "Curry",
     ],
+    DEFAULT_COMPANY = [ // 400 Companies
+        'SysVenamerica', 'Steganoconiche', 'iSkyvaco', 'Ventanium', 'Navivacs', 'Mescaridic', 'Fibroserve', 'Qualserve',
+        'Turbomart', 'Safetrust', 'Truegate', 'Superscope', 'Teknoplexon', 'Safeagra', 'Pacwest', 'Pericenta', 'Tekcar', 'Mescatron',
+        'Idmax', 'iEnland', 'Superscope', 'Celgra', 'Pericenta', 'Vencom', 'Multitiqua', 'Robotomic', 'Indisco', 'iMedconik',
+        'Cryptotemplate', 'Entcast', 'Keytheon', 'Indisco', 'Unologic', 'Allphysiche', 'Teraserv', 'Teknoplexon', 'Generola', 'Venconix',
+        'eEyetanic', 'Idmax', 'Thermotomic', 'InfoAirway', 'Unologic', 'Pacwest', 'Pacwest', 'Genland', 'Openserve', 'Robocomm',
+        'Steganoconiche', 'OpKeycomm', 'Conrama', 'Steganoconiche', 'Westtomik', 'Mescaridic', 'Compuamerica', 'Anagraph', 'Robotomic',
+        'Netsystems', 'Gigaura', 'Tekcar', 'Netsystems', 'Orthosoft', 'Truegate', 'Sontopia', 'Pacwest', 'Fibrotouch', 'Pacwest', 'Proline',
+        'SysVenamerica', 'Videobanc', 'Conrama', 'Jamrola', 'Anaframe', 'Multitiqua', 'Allnet', 'Westgate', 'Proline', 'Truetomic', 'Safeagra',
+        'Airdyne', 'Xeicon', 'Orthomedia', 'Fibrotopia', 'Anagraph', 'Westmedia', 'Anaframe', 'Pericenta', 'Infragraph', 'Syssoft',
+        'iMedconik', 'Robocomm', 'Titanirola', 'Rapigrafix', 'Indisco', 'Infraique', 'Inridium', 'Teratopia', 'Conotomics', 'Netsystems',
+        'Anaframe', 'InfoAirway', 'Technogra', 'Proline', 'Titanirola', 'Westgate', 'iMedconik', 'Conotomics', 'Mescaridic', 'Infraique',
+        'Techtron', 'Mescaridic', 'Teratopia', 'Netseco', 'Titanirola', 'Conrama', 'Rapigrafix', 'Robotomic', 'Mescaridic', 'Fibrotouch',
+        'Xeicon', 'Superscope', 'Sontopia', 'Entcast', 'Superscope', 'Hypervaco', 'Steganoconiche', 'Nanobanc', 'Xeicon', 'InfoAirway',
+        'Safeagra', 'Robocomm', 'Aluco', 'Quintegrity', 'Techtron', 'Pericenta', 'Mescatron', 'iOptystix', 'Titanirola', 'Syssoft',
+        'Tekcar', 'Openserve', 'Cryptotemplate', 'Genland', 'SysVenamerica', 'Aprama', 'iEnland', 'iMedconik', 'Skydata', 'Airdyne',
+        'Aluco', 'Thermotomic', 'US Omnigraphik', 'Textiqua', 'Navivacs', 'Enlogia', 'Conotomics', 'Superscope', 'Fibrotopia',
+        'Mescatron', 'Infraique', 'Netsystems', 'Unconix', 'Genland', 'Fibroserve', 'Openserve', 'iMedconik', 'Inridium', 'Idmax',
+        'Ventanium', 'Titanirola', 'OpKeycomm', 'RoboAerlogix', 'Steganoconiche', 'Textiqua', 'OpKeycomm', 'Rapigrafix', 'Robotomic',
+        'Netseco', 'Cryptotemplate', 'Fibroserve', 'Anaframe', 'Polytheon', 'InfoAirway', 'Textiqua', 'SysVenamerica', 'Ventanium',
+        'Idmax', 'Qualserve', 'Ameritron', 'Dynarama', 'Jamconik', 'Tekcar', 'Tekcar', 'Rapigrafix', 'Westtomik', 'Aluco', 'Safeagra',
+        'Truegate', 'Netseco', 'Transtouch', 'Technogra', 'Airdyne', 'Indisco', 'Anaframe', 'Entcast', 'RoboAerlogix', 'eSteganoergy',
+        'Compuamerica', 'Netsystems', 'Aprama', 'Titanigraf', 'Technogra', 'Fibroserve', 'Technogra', 'Mescaridic', 'Allphysiche', 'Westgate',
+        'Allnet', 'eSteganoergy', 'US Infratouch', 'Titanigraf', 'Fibrotopia', 'Conrama', 'Allphysiche', 'Allnet', 'Orthomedia',
+        'Infragraph', 'Ventanium', 'Textiqua', 'Orthosoft', 'Ameritron', 'Turbomart', 'Keytheon', 'Aluco', 'Transtouch', 'Mescaridic',
+        'Superscope', 'Venconix', 'Teraserv', 'Pericenta', 'Steganoconiche', 'Pericenta', 'Allphysiche', 'iEnland', 'Raylog', 'Netseco',
+        'Unconix', 'Netseco', 'Orthomedia', 'Qualserve', 'Fibroserve', 'Quintegrity', 'Multitiqua', 'Ameritron', 'Conotomics', 'Xeicon',
+        'Infragraph', 'Unconix', 'Unconix', 'Unologic', 'Technogra', 'Orthomedia', 'Openserve', 'Netseco', 'Sontopia', 'Quintegrity',
+        'Polytheon', 'Robotomic', 'Sontopia', 'Truetomic', 'iOptystix', 'Ameritron', 'Technogra', 'Robotomic', 'Openserve', 'Allphysiche',
+        'Videobanc', 'Techtron', 'OpKeycomm', 'Textiqua', 'Pacwest', 'Raylog', 'Transtouch', 'iSkyvaco', 'Jamrola', 'Rapigrafix',
+        'Gigaura', 'Allphysiche', 'Venconix', 'Raylog', 'Thermotomic', 'Polytheon', 'Inridium', 'Ventanium', 'Conotomics', 'Allnet',
+        'Proline', 'Conotomics', 'US Infratouch', 'US Infratouch', 'US Omnigraphik', 'Celgra', 'Anagraph', 'Allphysiche', 'Aluco',
+        'Cryptotemplate', 'Allphysiche', 'Westtomik', 'US Infratouch', 'Aluco', 'Westmedia', 'Safetrust', 'SysVenamerica', 'Keytheon',
+        'Transtouch', 'Allphysiche', 'Venconix', 'Aprama', 'Netseco', 'iEnland', 'Thermotomic', 'Transtouch', 'Titanirola', 'Anagraph',
+        'Keytheon', 'Orthomedia', 'US Omnigraphik', 'Teraserv', 'Interliant', 'Multitiqua', 'Hypervaco', 'Aluco', 'Teknoplexon',
+        'Teratopia', 'Allphysiche', 'Compuamerica', 'Xeicon', 'Openserve', 'Generola', 'Aprama', 'US Omnigraphik', 'Safeagra', 'Unologic',
+        'eSteganoergy', 'iSkyvaco', 'Qualserve', 'SysUSA', 'Vencom', 'Hypervaco', 'Robotomic', 'Unconix', 'Raylog', 'RoboAerlogix', 'Gigaura',
+        'OpKeycomm', 'Fibrotopia', 'Aprama', 'Titanigraf', 'Titanigraf', 'Cryptotemplate', 'Nanobanc', 'iMedconik', 'Cryptotegrity',
+        'Cryptotemplate', 'Infraique', 'Multitiqua', 'US Infratouch', 'Westgate', 'Teratopia', 'Robotomic', 'Gigaura', 'Infraique', 'Venconix',
+        'SysUSA', 'OpKeycomm', 'Jamrola', 'Safeagra', 'Jamconik', 'Titanirola', 'Indisco', 'Fibrotouch', 'Aprama', 'Vencom', 'Syssoft',
+        'Pericenta', 'Teknoplexon', 'Qualserve', 'Textiqua', 'Transtouch', 'Infragraph', 'Fibrotopia', 'Transtouch', 'Rapigrafix',
+        'Allphysiche', 'iQualcar', 'Techtron', 'Multitiqua', 'Hypervaco', 'Transtouch', 'Cryptotegrity'
+    ],
+    DEFAULT_TERMS = [ // 2272 Terms
+        'abbreviation', 'abbreviations', 'abettor', 'abettors', 'abilities', 'ability', 'abrasion', 'abrasions', 'abrasive',
+        'abrasives', 'absence', 'absences', 'abuse', 'abuser', 'abusers', 'abuses', 'acceleration', 'accelerations', 'acceptance',
+        'acceptances', 'acceptor', 'acceptors', 'access', 'accesses', 'accessories', 'accessory', 'accident', 'accidents', 'accommodation',
+        'accomplishment', 'accomplishments', 'accord', 'accordance', 'account', 'accountabilities', 'accountability', 'accounts', 'accrual',
+        'accruals', 'accruement', 'accumulation', 'accumulations', 'accuracy', 'accusation', 'accusations', 'acid', 'acids',
+        'acquisition', 'acquisitions', 'acquittal', 'acquittals', 'acre', 'acres', 'acronym', 'acronyms', 'act', 'action', 'actions',
+        'activities', 'activity', 'acts', 'adaption', 'adaptions', 'addition', 'additions', 'additive', 'additives', 'address', 'addressee',
+        'addressees', 'addresses', 'adherence', 'adherences', 'adhesive', 'adhesives', 'adjective', 'adjectives', 'adjustment',
+        'adjustments', 'administration', 'administrations', 'administrator', 'administrators', 'admiral', 'admirals', 'admiralties',
+        'admiralty', 'admission', 'admissions', 'advance', 'advancement', 'advancements', 'advances', 'advantage', 'advantages', 'adverb',
+        'adverbs', 'advertisement', 'advertisements', 'adviser', 'advisers', 'affair', 'affairs', 'affiant', 'affiants', 'afternoon',
+        'afternoons', 'age', 'agent', 'agents', 'ages', 'aggravation', 'aggravations', 'agreement', 'agreements', 'aid', 'aids', 'aim',
+        'aims', 'air', 'aircraft', 'airfield', 'airfields', 'airplane', 'airplanes', 'airport', 'airports', 'airs', 'airship',
+        'airships', 'airspeed', 'airspeeds', 'alarm', 'alarms', 'alcohol', 'alcoholic', 'alcoholics', 'alcoholism', 'alcohols', 'alert',
+        'alerts', 'algebra', 'algorithm', 'algorithms', 'alias', 'aliases', 'alibi', 'alibis', 'alignment', 'alignments', 'alkalinity',
+        'allegation', 'allegations', 'alley', 'alleys', 'allies', 'allocation', 'allocations', 'allotment', 'allotments', 'allowance',
+        'allowances', 'alloy', 'alloys', 'ally', 'alphabet', 'alphabets', 'alternate', 'alternates', 'alternation', 'alternations',
+        'alternative', 'alternatives', 'altimeter', 'altimeters', 'altitude', 'altitudes', 'aluminum', 'aluminums', 'ambiguity', 'americans',
+        'ammonia', 'ammunition', 'amount', 'amounts', 'amperage', 'amperages', 'ampere', 'amperes', 'amplifier', 'amplifiers',
+        'amplitude', 'amplitudes', 'amusement', 'amusements', 'analog', 'analogs', 'analyses', 'analysis', 'analyst', 'analysts',
+        'analyzer', 'analyzers', 'anchor', 'anchors', 'angle', 'angles', 'animal', 'animals', 'annex', 'annexs', 'answer', 'answers',
+        'antenna', 'antennas', 'anthem', 'anthems', 'anticipation', 'apostrophe', 'apostrophes', 'apparatus', 'apparatuses', 'appeal',
+        'appeals', 'appearance', 'appearances', 'appellate', 'apple', 'apples', 'applicant', 'applicants', 'application', 'applications',
+        'apportionment', 'apportionments', 'appraisal', 'appraisals', 'apprehension', 'apprehensions', 'apprenticeship', 'apprenticeships',
+        'approach', 'approaches', 'appropriation', 'appropriations', 'approval', 'approvals', 'april', 'apron', 'aprons', 'aptitude',
+        'aptitudes', 'arc', 'arch', 'arches', 'architecture', 'arcs', 'area', 'areas', 'argument', 'arguments', 'arithmetic', 'arm',
+        'armament', 'armaments', 'armful', 'armfuls', 'armies', 'armor', 'armories', 'armors', 'armory', 'arms', 'army', 'arraignment',
+        'arraignments', 'arrangement', 'arrangements', 'array', 'arrays', 'arrest', 'arrests', 'arrival', 'arrivals', 'arrow', 'arrows',
+        'art', 'article', 'articles', 'artilleries', 'artillery', 'arts', 'assault', 'assaults', 'assemblies', 'assembly',
+        'assignment', 'assignments', 'assistance', 'assistant', 'assistants', 'associate', 'associates', 'asterisk', 'asterisks',
+        'athwartship', 'atmosphere', 'atmospheres', 'atom', 'atoms', 'attachment', 'attachments', 'attack', 'attacker', 'attackers',
+        'attempt', 'attempts', 'attention', 'attesting', 'attitude', 'attitudes', 'attorney', 'attorneys', 'attraction', 'attractions',
+        'attribute', 'attributes', 'audit', 'auditor', 'auditors', 'audits', 'augmentation', 'augmentations', 'august', 'authorities',
+        'authority', 'authorization', 'authorizations', 'auto', 'automation', 'automobile', 'automobiles', 'autos', 'auxiliaries',
+        'average', 'averages', 'aviation', 'award', 'awards', 'ax', 'axes', 'axis', 'azimuth', 'azimuths', 'accounting', 'able',
+        'aboard', 'about', 'above', 'accept', 'according', 'accurate', 'across', 'active', 'actual', 'actually', 'add', 'additional',
+        'adult', 'adventure', 'advice', 'affect', 'afraid', 'after', 'again', 'against', 'ago', 'agree', 'ahead', 'alike', 'alive',
+        'all', 'allow', 'almost', 'alone', 'along', 'aloud', 'already', 'also', 'although', 'am', 'among', 'ancient', 'angry',
+        'announced', 'another', 'ants', 'any', 'anybody', 'anyone', 'anything', 'anyway', 'anywhere', 'apart', 'apartment', 'applied',
+        'appropriate', 'are', 'around', 'arrange', 'arrive', 'as', 'aside', 'ask', 'asleep', 'at', 'ate', 'atomic', 'attached', 'audience',
+        'author', 'available', 'avoid', 'aware', 'away', 'baby', 'back', 'bad', 'badly', 'bag', 'balance', 'ball', 'balloon', 'band',
+        'bank', 'bar', 'bare', 'bark', 'barn', 'base', 'baseball', 'basic', 'basis', 'basket', 'bat', 'battle', 'be', 'bean', 'bear',
+        'beat', 'beautiful', 'beauty', 'became', 'because', 'become', 'becoming', 'bee', 'been', 'before', 'began', 'beginning',
+        'begun', 'behavior', 'behind', 'being', 'believed', 'bell', 'belong', 'below', 'belt', 'bend', 'beneath', 'bent', 'beside',
+        'best', 'bet', 'better', 'between', 'beyond', 'bicycle', 'bigger', 'biggest', 'bill', 'birds', 'birth', 'birthday', 'bit',
+        'bite', 'black', 'blank', 'blanket', 'blew', 'blind', 'block', 'blood', 'blow', 'blue', 'board', 'boat', 'body', 'bone',
+        'book', 'border', 'born', 'both', 'bottle', 'bottom', 'bound', 'bow', 'bowl', 'box', 'boy', 'brain', 'branch', 'brass',
+        'brave', 'bread', 'break', 'breakfast', 'breath', 'breathe', 'breathing', 'breeze', 'brick', 'bridge', 'brief', 'bright',
+        'bring', 'broad', 'broke', 'broken', 'brother', 'brought', 'brown', 'brush', 'buffalo', 'build', 'building', 'built', 'buried',
+        'burn', 'burst', 'bus', 'bush', 'business', 'busy', 'but', 'butter', 'buy', 'by', 'cabin', 'cage', 'cake', 'call', 'calm',
+        'came', 'camera', 'camp', 'can', 'canal', 'cannot', 'cap', 'capital', 'captain', 'captured', 'car', 'carbon', 'card', 'care',
+        'careful', 'carefully', 'carried', 'carry', 'case', 'cast', 'castle', 'cat', 'catch', 'cattle', 'caught', 'cause', 'cave',
+        'cell', 'cent', 'center', 'central', 'century', 'certain', 'certainly', 'chain', 'chair', 'chamber', 'chance', 'change',
+        'changing', 'chapter', 'character', 'characteristic', 'charge', 'chart', 'check', 'cheese', 'chemical', 'chest', 'chicken',
+        'chief', 'child', 'children', 'choice', 'choose', 'chose', 'chosen', 'church', 'circle', 'circus', 'citizen', 'city', 'class',
+        'classroom', 'claws', 'clay', 'clean', 'clear', 'clearly', 'climate', 'climb', 'clock', 'close', 'closely', 'closer', 'cloth',
+        'clothes', 'clothing', 'cloud', 'club', 'coach', 'coal', 'coast', 'coat', 'coffee', 'cold', 'collect', 'college', 'colony',
+        'color', 'column', 'combination', 'combine', 'come', 'comfortable', 'coming', 'command', 'common', 'community', 'company',
+        'compare', 'compass', 'complete', 'completely', 'complex', 'composed', 'composition', 'compound', 'concerned', 'condition',
+        'congress', 'connected', 'consider', 'consist', 'consonant', 'constantly', 'construction', 'contain', 'continent', 'continued',
+        'contrast', 'control', 'conversation', 'cook', 'cookies', 'cool', 'copper', 'copy', 'corn', 'corner', 'correct', 'correctly',
+        'cost', 'cotton', 'could', 'count', 'country', 'couple', 'courage', 'course', 'court', 'cover', 'cow', 'cowboy', 'crack',
+        'cream', 'create', 'creature', 'crew', 'crop', 'cross', 'crowd', 'cry', 'cup', 'curious', 'current', 'curve', 'customs', 'cut',
+        'cutting', 'daily', 'damage', 'dance', 'danger', 'dangerous', 'dark', 'darkness', 'date', 'daughter', 'dawn', 'day', 'dead',
+        'deal', 'dear', 'death', 'decide', 'declared', 'deep', 'deeply', 'deer', 'definition', 'degree', 'depend', 'depth',
+        'describe', 'desert', 'design', 'desk', 'detail', 'determine', 'develop', 'development', 'diagram', 'diameter', 'did', 'die',
+        'differ', 'difference', 'different', 'difficult', 'difficulty', 'dig', 'dinner', 'direct', 'direction', 'directly', 'dirt',
+        'dirty', 'disappear', 'discover', 'discovery', 'discuss', 'discussion', 'disease', 'dish', 'distance', 'distant', 'divide',
+        'division', 'do', 'doctor', 'does', 'dog', 'doing', 'doll', 'dollar', 'done', 'donkey', 'door', 'dot', 'double', 'doubt', 'down',
+        'dozen', 'draw', 'drawn', 'dream', 'dress', 'drew', 'dried', 'drink', 'drive', 'driven', 'driver', 'driving', 'drop',
+        'dropped', 'drove', 'dry', 'duck', 'due', 'dug', 'dull', 'during', 'dust', 'duty', 'each', 'eager', 'ear', 'earlier', 'early',
+        'earn', 'earth', 'easier', 'easily', 'east', 'easy', 'eat', 'eaten', 'edge', 'education', 'effect', 'effort', 'egg', 'eight',
+        'either', 'electric', 'electricity', 'element', 'elephant', 'eleven', 'else', 'empty', 'end', 'enemy', 'energy', 'engine',
+        'engineer', 'enjoy', 'enough', 'enter', 'entire', 'entirely', 'environment', 'equal', 'equally', 'equator', 'equipment', 'escape',
+        'especially', 'essential', 'establish', 'even', 'evening', 'event', 'eventually', 'ever', 'every', 'everybody', 'everyone',
+        'everything', 'everywhere', 'evidence', 'exact', 'exactly', 'examine', 'example', 'excellent', 'except', 'exchange', 'excited',
+        'excitement', 'exciting', 'exclaimed', 'exercise', 'exist', 'expect', 'experience', 'experiment', 'explain', 'explanation',
+        'explore', 'express', 'expression', 'extra', 'eye', 'face', 'facing', 'fact', 'factor', 'factory', 'failed', 'fair', 'fairly',
+        'fall', 'fallen', 'familiar', 'family', 'famous', 'far', 'farm', 'farmer', 'farther', 'fast', 'fastened', 'faster', 'fat',
+        'father', 'favorite', 'fear', 'feathers', 'feature', 'fed', 'feed', 'feel', 'feet', 'fell', 'fellow', 'felt', 'fence', 'few',
+        'fewer', 'field', 'fierce', 'fifteen', 'fifth', 'fifty', 'fight', 'fighting', 'figure', 'fill', 'film', 'final', 'finally',
+        'find', 'fine', 'finest', 'finger', 'finish', 'fire', 'fireplace', 'firm', 'first', 'fish', 'five', 'fix', 'flag', 'flame',
+        'flat', 'flew', 'flies', 'flight', 'floating', 'floor', 'flow', 'flower', 'fly', 'fog', 'folks', 'follow', 'food', 'foot',
+        'football', 'for', 'force', 'foreign', 'forest', 'forget', 'forgot', 'forgotten', 'form', 'former', 'fort', 'forth', 'forty',
+        'forward', 'fought', 'found', 'four', 'fourth', 'fox', 'frame', 'free', 'freedom', 'frequently', 'fresh', 'friend', 'friendly',
+        'frighten', 'frog', 'from', 'front', 'frozen', 'fruit', 'fuel', 'full', 'fully', 'fun', 'function', 'funny', 'fur', 'furniture',
+        'further', 'future', 'gain', 'game', 'garage', 'garden', 'gas', 'gasoline', 'gate', 'gather', 'gave', 'general', 'generally',
+        'gentle', 'gently', 'get', 'getting', 'giant', 'gift', 'girl', 'give', 'given', 'giving', 'glad', 'glass', 'globe', 'go',
+        'goes', 'gold', 'golden', 'gone', 'good', 'goose', 'got', 'government', 'grabbed', 'grade', 'gradually', 'grain',
+        'grandfather', 'grandmother', 'graph', 'grass', 'gravity', 'gray', 'great', 'greater', 'greatest', 'greatly', 'green', 'grew',
+        'ground', 'group', 'grow', 'grown', 'growth', 'guard', 'guess', 'guide', 'gulf', 'gun', 'habit', 'had', 'hair', 'half',
+        'halfway', 'hall', 'hand', 'handle', 'handsome', 'hang', 'happen', 'happened', 'happily', 'happy', 'harbor', 'hard', 'harder',
+        'hardly', 'has', 'hat', 'have', 'having', 'hay', 'he', 'headed', 'heading', 'health', 'heard', 'hearing', 'heart', 'heat',
+        'heavy', 'height', 'held', 'hello', 'help', 'helpful', 'her', 'herd', 'here', 'herself', 'hidden', 'hide', 'high', 'higher',
+        'highest', 'highway', 'hill', 'him', 'himself', 'his', 'history', 'hit', 'hold', 'hole', 'hollow', 'home', 'honor', 'hope',
+        'horn', 'horse', 'hospital', 'hot', 'hour', 'house', 'how', 'however', 'huge', 'human', 'hundred', 'hung', 'hungry', 'hunt',
+        'hunter', 'hurried', 'hurry', 'hurt', 'husband', 'ice', 'idea', 'identity', 'if', 'ill', 'image', 'imagine', 'immediately',
+        'importance', 'important', 'impossible', 'improve', 'in', 'inch', 'include', 'including', 'income', 'increase', 'indeed',
+        'independent', 'indicate', 'individual', 'industrial', 'industry', 'influence', 'information', 'inside', 'instance', 'instant',
+        'instead', 'instrument', 'interest', 'interior', 'into', 'introduced', 'invented', 'involved', 'iron', 'is', 'island', 'it',
+        'its', 'itself', 'jack', 'jar', 'jet', 'job', 'join', 'joined', 'journey', 'joy', 'judge', 'jump', 'jungle', 'just', 'keep',
+        'kept', 'key', 'kids', 'kill', 'kind', 'kitchen', 'knew', 'knife', 'know', 'knowledge', 'known', 'label', 'labor', 'lack',
+        'lady', 'laid', 'lake', 'lamp', 'land', 'language', 'large', 'larger', 'largest', 'last', 'late', 'later', 'laugh', 'law',
+        'lay', 'layers', 'lead', 'leader', 'leaf', 'learn', 'least', 'leather', 'leave', 'leaving', 'led', 'left', 'leg', 'length',
+        'lesson', 'let', 'letter', 'level', 'library', 'lie', 'life', 'lift', 'light', 'like', 'likely', 'limited', 'line', 'lion',
+        'lips', 'liquid', 'list', 'listen', 'little', 'live', 'living', 'load', 'local', 'locate', 'location', 'log', 'lonely',
+        'long', 'longer', 'look', 'loose', 'lose', 'loss', 'lost', 'lot', 'loud', 'love', 'lovely', 'low', 'lower', 'luck', 'lucky',
+        'lunch', 'lungs', 'lying', 'machine', 'machinery', 'mad', 'made', 'magic', 'magnet', 'mail', 'main', 'mainly', 'major', 'make',
+        'making', 'man', 'managed', 'manner', 'manufacturing', 'many', 'map', 'mark', 'market', 'married', 'mass', 'massage', 'master',
+        'material', 'mathematics', 'matter', 'may', 'maybe', 'me', 'meal', 'mean', 'means', 'meant', 'measure', 'meat', 'medicine',
+        'meet', 'melted', 'member', 'memory', 'men', 'mental', 'merely', 'met', 'metal', 'method', 'mice', 'middle', 'might',
+        'mighty', 'mile', 'military', 'milk', 'mill', 'mind', 'mine', 'minerals', 'minute', 'mirror', 'missing', 'mission', 'mistake',
+        'mix', 'mixture', 'model', 'modern', 'molecular', 'moment', 'money', 'monkey', 'month', 'mood', 'moon', 'more', 'morning',
+        'most', 'mostly', 'mother', 'motion', 'motor', 'mountain', 'mouse', 'mouth', 'move', 'movement', 'movie', 'moving', 'mud',
+        'muscle', 'music', 'musical', 'must', 'my', 'myself', 'mysterious', 'nails', 'name', 'nation', 'national', 'native', 'natural',
+        'naturally', 'nature', 'near', 'nearby', 'nearer', 'nearest', 'nearly', 'necessary', 'neck', 'needed', 'needle', 'needs',
+        'negative', 'neighbor', 'neighborhood', 'nervous', 'nest', 'never', 'new', 'news', 'newspaper', 'next', 'nice', 'night', 'nine',
+        'no', 'nobody', 'nodded', 'noise', 'none', 'noon', 'nor', 'north', 'nose', 'not', 'note', 'noted', 'nothing', 'notice',
+        'noun', 'now', 'number', 'numeral', 'nuts', 'object', 'observe', 'obtain', 'occasionally', 'occur', 'ocean', 'of', 'off',
+        'offer', 'office', 'officer', 'official', 'oil', 'old', 'older', 'oldest', 'on', 'once', 'one', 'only', 'onto', 'open',
+        'operation', 'opinion', 'opportunity', 'opposite', 'or', 'orange', 'orbit', 'order', 'ordinary', 'organization', 'organized',
+        'origin', 'original', 'other', 'ought', 'our', 'ourselves', 'out', 'outer', 'outline', 'outside', 'over', 'own', 'owner',
+        'oxygen', 'pack', 'package', 'page', 'paid', 'pain', 'paint', 'pair', 'palace', 'pale', 'pan', 'paper', 'paragraph', 'parallel',
+        'parent', 'park', 'part', 'particles', 'particular', 'particularly', 'partly', 'parts', 'party', 'pass', 'passage', 'past',
+        'path', 'pattern', 'pay', 'peace', 'pen', 'pencil', 'people', 'per', 'percent', 'perfect', 'perfectly', 'perhaps', 'period',
+        'person', 'personal', 'pet', 'phrase', 'physical', 'piano', 'pick', 'picture', 'pictured', 'pie', 'piece', 'pig', 'pile',
+        'pilot', 'pine', 'pink', 'pipe', 'pitch', 'place', 'plain', 'plan', 'plane', 'planet', 'planned', 'planning', 'plant',
+        'plastic', 'plate', 'plates', 'play', 'pleasant', 'please', 'pleasure', 'plenty', 'plural', 'plus', 'pocket', 'poem', 'poet',
+        'poetry', 'point', 'pole', 'police', 'policeman', 'political', 'pond', 'pony', 'pool', 'poor', 'popular', 'population', 'porch',
+        'port', 'position', 'positive', 'possible', 'possibly', 'post', 'pot', 'potatoes', 'pound', 'pour', 'powder', 'power',
+        'powerful', 'practical', 'practice', 'prepare', 'present', 'president', 'press', 'pressure', 'pretty', 'prevent', 'previous',
+        'price', 'pride', 'primitive', 'principal', 'principle', 'printed', 'private', 'prize', 'probably', 'problem', 'process',
+        'produce', 'product', 'production', 'program', 'progress', 'promised', 'proper', 'properly', 'property', 'protection', 'proud',
+        'prove', 'provide', 'public', 'pull', 'pupil', 'pure', 'purple', 'purpose', 'push', 'put', 'putting', 'quarter', 'queen',
+        'question', 'quick', 'quickly', 'quiet', 'quietly', 'quite', 'rabbit', 'race', 'radio', 'railroad', 'rain', 'raise', 'ran',
+        'ranch', 'range', 'rapidly', 'rate', 'rather', 'raw', 'rays', 'reach', 'read', 'reader', 'ready', 'real', 'realize', 'rear',
+        'reason', 'recall', 'receive', 'recent', 'recently', 'recognize', 'record', 'red', 'refer', 'refused', 'region', 'regular',
+        'related', 'relationship', 'religious', 'remain', 'remarkable', 'remember', 'remove', 'repeat', 'replace', 'replied', 'report',
+        'represent', 'require', 'research', 'respect', 'rest', 'result', 'return', 'review', 'rhyme', 'rhythm', 'rice', 'rich', 'ride',
+        'riding', 'right', 'ring', 'rise', 'rising', 'river', 'road', 'roar', 'rock', 'rocket', 'rocky', 'rod', 'roll', 'roof', 'room',
+        'root', 'rope', 'rose', 'rough', 'round', 'route', 'row', 'rubbed', 'rubber', 'rule', 'ruler', 'run', 'running', 'rush',
+        'sad', 'saddle', 'safe', 'safety', 'said', 'sail', 'sale', 'salmon', 'salt', 'same', 'sand', 'sang', 'sat', 'satellites',
+        'satisfied', 'save', 'saved', 'saw', 'say', 'scale', 'scared', 'scene', 'school', 'science', 'scientific', 'scientist', 'score',
+        'screen', 'sea', 'search', 'season', 'seat', 'second', 'secret', 'section', 'see', 'seed', 'seeing', 'seems', 'seen', 'seldom',
+        'select', 'selection', 'sell', 'send', 'sense', 'sent', 'sentence', 'separate', 'series', 'serious', 'serve', 'service', 'sets',
+        'setting', 'settle', 'settlers', 'seven', 'several', 'shade', 'shadow', 'shake', 'shaking', 'shall', 'shallow', 'shape', 'share',
+        'sharp', 'she', 'sheep', 'sheet', 'shelf', 'shells', 'shelter', 'shine', 'shinning', 'ship', 'shirt', 'shoe', 'shoot', 'shop',
+        'shore', 'short', 'shorter', 'shot', 'should', 'shoulder', 'shout', 'show', 'shown', 'shut', 'sick', 'sides', 'sight', 'sign',
+        'signal', 'silence', 'silent', 'silk', 'silly', 'silver', 'similar', 'simple', 'simplest', 'simply', 'since', 'sing', 'single',
+        'sink', 'sister', 'sit', 'sitting', 'situation', 'six', 'size', 'skill', 'skin', 'sky', 'slabs', 'slave', 'sleep', 'slept',
+        'slide', 'slight', 'slightly', 'slip', 'slipped', 'slope', 'slow', 'slowly', 'small', 'smaller', 'smallest', 'smell', 'smile',
+        'smoke', 'smooth', 'snake', 'snow', 'so', 'soap', 'social', 'society', 'soft', 'softly', 'soil', 'solar', 'sold', 'soldier',
+        'solid', 'solution', 'solve', 'some', 'somebody', 'somehow', 'someone', 'something', 'sometime', 'somewhere', 'son', 'song',
+        'soon', 'sort', 'sound', 'source', 'south', 'southern', 'space', 'speak', 'special', 'species', 'specific', 'speech', 'speed',
+        'spell', 'spend', 'spent', 'spider', 'spin', 'spirit', 'spite', 'split', 'spoken', 'sport', 'spread', 'spring', 'square',
+        'stage', 'stairs', 'stand', 'standard', 'star', 'stared', 'start', 'state', 'statement', 'station', 'stay', 'steady', 'steam',
+        'steel', 'steep', 'stems', 'step', 'stepped', 'stick', 'stiff', 'still', 'stock', 'stomach', 'stone', 'stood', 'stop',
+        'stopped', 'store', 'storm', 'story', 'stove', 'straight', 'strange', 'stranger', 'straw', 'stream', 'street', 'strength',
+        'stretch', 'strike', 'string', 'strip', 'strong', 'stronger', 'struck', 'structure', 'struggle', 'stuck', 'student', 'studied',
+        'studying', 'subject', 'substance', 'success', 'successful', 'such', 'sudden', 'suddenly', 'sugar', 'suggest', 'suit', 'sum',
+        'summer', 'sun', 'sunlight', 'supper', 'supply', 'support', 'suppose', 'sure', 'surface', 'surprise', 'surrounded', 'swam',
+        'sweet', 'swept', 'swim', 'swimming', 'swing', 'swung', 'syllable', 'symbol', 'system', 'table', 'tail', 'take', 'taken',
+        'tales', 'talk', 'tall', 'tank', 'tape', 'task', 'taste', 'taught', 'tax', 'tea', 'teach', 'teacher', 'team', 'tears', 'teeth',
+        'telephone', 'television', 'tell', 'temperature', 'ten', 'tent', 'term', 'terrible', 'test', 'than', 'thank', 'that', 'thee',
+        'them', 'themselves', 'then', 'theory', 'there', 'therefore', 'these', 'they', 'thick', 'thin', 'thing', 'think', 'third',
+        'thirty', 'this', 'those', 'thou', 'though', 'thought', 'thousand', 'thread', 'three', 'threw', 'throat', 'through',
+        'throughout', 'throw', 'thrown', 'thumb', 'thus', 'thy', 'tide', 'tie', 'tight', 'tightly', 'till', 'time', 'tin', 'tiny', 'tip',
+        'tired', 'title', 'to', 'tobacco', 'today', 'together', 'told', 'tomorrow', 'tone', 'tongue', 'tonight', 'too', 'took', 'tool',
+        'top', 'topic', 'torn', 'total', 'touch', 'toward', 'tower', 'town', 'toy', 'trace', 'track', 'trade', 'traffic', 'trail',
+        'train', 'transportation', 'trap', 'travel', 'treated', 'tree', 'triangle', 'tribe', 'trick', 'tried', 'trip', 'troops',
+        'tropical', 'trouble', 'truck', 'trunk', 'truth', 'try', 'tube', 'tune', 'turn', 'twelve', 'twenty', 'twice', 'two', 'type',
+        'typical', 'uncle', 'under', 'underline', 'understanding', 'unhappy', 'union', 'unit', 'universe', 'unknown', 'unless', 'until',
+        'unusual', 'up', 'upon', 'upper', 'upward', 'us', 'use', 'useful', 'using', 'usual', 'usually', 'valley', 'valuable', 'value',
+        'vapor', 'variety', 'various', 'vast', 'vegetable', 'verb', 'vertical', 'very', 'vessels', 'victory', 'view', 'village',
+        'visit', 'visitor', 'voice', 'volume', 'vote', 'vowel', 'voyage', 'wagon', 'wait', 'walk', 'wall', 'want', 'war', 'warm',
+        'warn', 'was', 'wash', 'waste', 'watch', 'water', 'wave', 'way', 'we', 'weak', 'wealth', 'wear', 'weather', 'week', 'weigh',
+        'weight', 'welcome', 'well', 'went', 'were', 'west', 'western', 'wet', 'whale', 'what', 'whatever', 'wheat', 'wheel', 'when',
+        'whenever', 'where', 'wherever', 'whether', 'which', 'while', 'whispered', 'whistle', 'white', 'who', 'whole', 'whom', 'whose',
+        'why', 'wide', 'widely', 'wife', 'wild', 'will', 'willing', 'win', 'wind', 'window', 'wing', 'winter', 'wire', 'wise',
+        'wish', 'with', 'within', 'without', 'wolf', 'women', 'won', 'wonder', 'wonderful', 'wood', 'wooden', 'wool', 'word', 'wore',
+        'work', 'worker', 'world', 'worried', 'worry', 'worse', 'worth', 'would', 'wrapped', 'write', 'writer', 'writing', 'written',
+        'wrong', 'wrote', 'yard', 'year', 'yellow', 'yes', 'yesterday', 'yet', 'you', 'young', 'younger', 'your', 'yourself', 'youth',
+        'zero', 'zebra', 'zipper', 'zoo', 'zulu',
+    ],
     DEFAULT_EMAIL_SERVER = [ // 14 server
         'gmail','gmail','gmail','gmail','gmail','gmail',
         'google','google',
@@ -760,29 +987,48 @@ final class LZFakeTextGenerator {
         '.xyz',
         '.us',
     ],
-    DEFAULT_CCARD = [ // 7 tipos de tarjetas de credito // FIXME: poner el comentario a español
-        'visa'       => ["4539","4556","4916","4532","4929","40240071","4485","4716","4",],
-        'mastercard' => ["51","52","53","54","55",],
-        'amex'       => ["34","37",],
-        'discover'   => ["300","301","302","303","36","38",],
-        'enroute'    => ["2014","2149",],
-        'jbc'        => ["35",],
-        'voyager'    => ["8699",],
+    DEFAULT_CCARD = [ // 9 types of credit cards
+        'visa'          => [4,4539,4556,4916,4532,4929,40240071,4485,4716,4,],
+        'mastercard'    => [51,52,53,54,55,],
+        'amex'          => [34,37,],
+        'discover'      => [6011,300,301,302,303,36,38,],
+        'enroute'       => [2014,2149,],
+        'jbc'           => [35,3,2131,1800],
+        'voyager'       => [8699,],
+        'carterblanche' => [38,],
+        'dinersclub'    => [300,301,302,303,304,305,36],
+    ],
+    DEFAULT_CCARD_WIDTH = [ // Number of numbers each card has for better accuracy
+        'visa'          => [13,16],
+        'mastercard'    => [16],
+        'amex'          => [15],
+        'discover'      => [16],
+        'jbc'           => [16,15],
+        'voyager'       => [15],
+        'carterblanche' => [14],
+        'dinersclub'    => [14],
+        'enroute'       => [14],
     ],
     DEFAULT_IMAGES = [
-        'C:\\Users\\Lenin\\Documents\\Downloads\\vscodebg1.jpg',
-        'C:\\Users\\Lenin\\Documents\\Downloads\\vscodebg2.jpg',
-        'C:\\Users\\Lenin\\Documents\\Downloads\\vscodebg3.jpg',
-        'C:\\Users\\Lenin\\Documents\\Downloads\\vscodebg4.jpg',
-        'C:\\Users\\Lenin\\Documents\\Downloads\\vscodebg5.jpg',
-        'C:\\Users\\Lenin\\Documents\\Downloads\\vscodebg6.jpg',
-        'C:\\Users\\Lenin\\Documents\\Downloads\\vscodebg7.jpg',
-        'C:\\Users\\Lenin\\Documents\\Downloads\\vscodebg8.jpg',
-        'C:\\Users\\Lenin\\Documents\\Downloads\\vscodebg9.jpg',
+        'https://images.unsplash.com/photo-1558981001-1995369a39cd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80',
+        'https://images.unsplash.com/photo-1570570876351-272278ce7e68?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80',
+        'https://images.unsplash.com/photo-1570545834220-f708005efbed?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80',
+        'https://images.unsplash.com/photo-1570543922355-c64a19ab2bc7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80',
+        'https://images.unsplash.com/photo-1570520482746-af035285c22b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80',
+        'https://images.unsplash.com/photo-1558980664-ce6960be307d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80',
     ],
     DEFAULT_IMAGE_ALIGN = [
         'LEFT'  => ' class_image_left ',
         'RIGHT' => ' class_image_right ',
+    ],
+    DEFAULT_CSS_PROPERTY = [
+        'background',
+        'overflow',
+        'color',
+        'font-size',
+        'font-width',
+        'margin',
+        'padding',
     ];
 
     private static
@@ -845,11 +1091,11 @@ final class LZFakeTextGenerator {
      */
     $frequency = self::FREQUENCY_RELATIVE,
     /**
-     * Alineacion a la izquierda // FIXME: documentar esta funcion
+     * Alignment to the left of image
      */
     $img_align_left = self::DEFAULT_IMAGE_ALIGN['LEFT'],
     /**
-     * Alineacion a la izquierda // FIXME: documentar esta funcion
+     * Right alignment
      */
     $img_align_right = self::DEFAULT_IMAGE_ALIGN['RIGHT'];
 
@@ -857,9 +1103,9 @@ final class LZFakeTextGenerator {
     /**
      * The block type tags it supports
      * @since   1.0     2019-09-17      Release
-     * @since   1.1     2019-09-27      Se cambio de la variable
+     * @since   1.1     2019-09-27      The variable was changed name
      * @var     array
-     */// FIXME: poner el comentario a español
+     */
     $all_tag_block_supported = self::TAG_BLOCK_SUPPORTED,
     /**
      * The inline type tags it supports
@@ -990,8 +1236,16 @@ final class LZFakeTextGenerator {
         return self::$semiPunctuationMarks[rand(0, count(self::$semiPunctuationMarks) - 1)];
     }
 
-    // FIXME: comentar esta funcion
-    private static function array_rand_slice( array $array, $num = 2){
+    /**
+     * From a random array remove elements and reorder
+     *
+     * @since   1.2     2019-10-06      Release
+     *
+     * @param   array   $array          Array that is going to be manipulated
+     * @param   int     $num            Number of items to remove at the end of the reordered array
+     * @return  array
+     */
+    public static function array_rand_slice( array $array, $num = 2){
         shuffle( $array );
         return array_slice( $array, 0, $num);
     }
@@ -1000,9 +1254,9 @@ final class LZFakeTextGenerator {
      * Calculate the frequency at which an action can be repeated
      * by random calculation.
      *
-     * @since   1.0         2019-09-16      Release // FIXME: poner el comentario a español
-     * @since   1.1         2019-09-27      - Actualizacion de comentarios de numeros de frecuencias
-     *                                      - Validacion de frecuencia para que permite solo cantidades de 1 - 100
+     * @since   1.0         2019-09-16      Release
+     * @since   1.1         2019-09-27      - Updating comments on frequency numbers
+     *                                      - Frequency validation to allow only quantities of 1 - 100
      * @param   string|int  $frequency{
      *      @example
      *          'very-low' = 10
@@ -1145,7 +1399,10 @@ final class LZFakeTextGenerator {
      * Usually it has a display block in its envelope
      *
      * @since   1.0         2019-09-16      Release
-     * @since   1.1         2019-09-27      Se agrego el bloque DIV // FIXME: poner el comentario a español
+     * @since   1.1         2019-09-27      DIV block added
+     * @since   1.2         2019-10-09      - The image tag is removed so that it does not interfere
+     *                                        with the internal content of a block.
+     *                                      - Table html was added
      *
      * @param   array|mixed $content        Current content in which tags will be inserted
      * @return  array|mixed
@@ -1174,6 +1431,8 @@ final class LZFakeTextGenerator {
         $tags_for_blocks = $strict && $insert_inline_tag
                             ? self::TAG_SUPPORTED
                             : self::array_rand_slice( self::TAG_SUPPORTED, (count( self::TAG_SUPPORTED ) / 2) + 1 );
+        // Remove the IMG tag
+        unset($tags_for_blocks['img']);
 
         // BLOCK - UL (Unordered Lists)
         $_html = '';
@@ -1264,9 +1523,10 @@ final class LZFakeTextGenerator {
 
             // The quotation has between 1 to 3 words
             $cite = self::createSentence(1,3);
+            $cite_wrap = self::frequency('low') ? '<cite>'. $cite .'</cite>' : '';
             // The text of the quotation has between 10 to 25 words
             $text = self::createSentence(10,25);
-            $_html .= '<blockquote cite="'. $cite .'"><cite>'. $cite .'</cite>'. $text .'</blockquote>';
+            $_html .= '<blockquote cite="'. $cite .'"><p>"'. $text . $cite_wrap .'</p></blockquote>';
             // Insert the block into the content below a calculated random paragraph
             $content = self::prefixInsertAfterParagraph( $_html, rand(1,count($content)) , $content);
 
@@ -1291,6 +1551,27 @@ final class LZFakeTextGenerator {
             $tag_proceeds = false; // Assign to the FALSE state to validate with the following tag
         }
 
+        // BLOCK - Heading separate
+        $_html = '';
+        // Validate if this tag is inserted or not in the content
+        $tag_proceeds    = ! $strict ? self::frequency('high') : true;
+        $header_avalible = array_intersect( ['h1','h2','h3','h4','h5','h6','h7'], $tags );
+        $header_avalible = self::array_rand_slice( $header_avalible, rand(1,7) );
+
+        if( (  !empty( $header_avalible )  ) && $tag_proceeds ){
+            foreach( $header_avalible as $heading ){
+                // 50% chance that this tag appeared in the total content
+                if( self::frequency('high') ){
+                    // Create a title of 8 to 15 characters
+                    $text = self::createSentence(8,15);
+                    $_html = '<'.$heading.'>'. $text .'</'. $heading .'>';
+                    // Insert the block into the content below a calculated random paragraph
+                    $content = self::prefixInsertAfterParagraph( $_html, rand(1,count($content)) , $content);
+                }
+            }
+            $tag_proceeds = false; // Assign to the FALSE state to validate with the following tag
+        }
+
         // BLOCK - Pre
         $_html = '';
         // Validate if this tag is inserted or not in the content
@@ -1306,6 +1587,7 @@ final class LZFakeTextGenerator {
         }
 
         // BLOCK - Div
+        $_html = '';
         // Validate if this tag is inserted or not in the content
         $tag_proceeds = ! $strict ? self::frequency() : true;
         if( in_array('div', $tags) && $tag_proceeds ){
@@ -1319,6 +1601,7 @@ final class LZFakeTextGenerator {
         }
 
         // BLOCK - HR
+        $_html = '';
         // Validate if this tag is inserted or not in the content
         $tag_proceeds = ! $strict ? self::frequency() : true;
         if( in_array('hr', $tags) && $tag_proceeds ){
@@ -1330,14 +1613,87 @@ final class LZFakeTextGenerator {
         }
 
         // BLOCK - IMG
+        $_html = '';
         // Validate if this tag is inserted or not in the content
         $tag_proceeds = ! $strict ? self::frequency() : true;
         if( in_array('img', $tags) && $tag_proceeds ){
             // Between 10 and 25 characters for alt
             $alt    = self::createSentence(4,15);
-            $_html .= self::createImage( ['alt' => $alt, 'title'=> $alt], 'p' );
+            $align  = self::get_align_image();
+            $_html .= self::createImage( ['alt' => $alt, 'title'=> $alt, 'class' => $align, 'width' => rand(150,640), 'height' => rand(150,550) ], 'p' );
             // Insert the block into the content below a calculated random paragraph
             $content = self::prefixInsertAfterParagraph( $_html, rand(1,count($content)) , $content);
+
+            $tag_proceeds = false; // Assign to the FALSE state to validate with the following tag
+        }
+
+        // BLOCK - Table
+        $_html = '';
+        // Validate if this tag is inserted or not in the content
+        $tag_proceeds = ! $strict ? self::frequency('low') : true;
+        if( in_array('table', $tags) && $tag_proceeds ){
+
+            // Define the rows and columns
+            $cols = rand(2,6);
+            $rows = rand(2,10);
+
+            $_html = '<table>';
+            // Check if the table has a total header
+            if( self::frequency() ){
+                $_html .= "<tr>";
+                $_html .= "<th colspan='".$cols."'>" . self::get_words( rand(1,2) ) . "</th>";
+                $_html .= "</tr>";
+            }
+            // Check if the table will have a header
+            if( self::frequency() ){
+                $_html .= "<tr>";
+                // check if the title of the header is going to make a caption or a colspan
+                if( self::frequency() ){
+                    foreach( range(1,$cols) as $col ){
+                        $_html .= "<th>" . self::get_words( rand(1,4) ) . "</th>";
+                    }
+                }else{
+                    $_html .= "<caption>" . self::get_words( rand(1,4) ) . "</caption>";
+                }
+            }
+            // Fill in the table
+            foreach( range(1,$rows) as $row ){
+                $_html .= "<tr>";
+                foreach( range(1,$cols) as $col ){
+                    $_html .= "<td>" . self::get_words( rand(1,2) ) . "</td>";
+                }
+                $_html .= "</tr>";
+            }
+            $_html .= '</table>';
+
+            // Insert the block into the content below a calculated random paragraph
+            $content = self::prefixInsertAfterParagraph( $_html, rand(1,count($content)) , $content);
+
+            $tag_proceeds = false; // Assign to the FALSE state to validate with the following tag
+        }
+
+        // BLOCK - Pre-Code
+        $_html = '';
+        // Validate if this tag is inserted or not in the content
+        $tag_proceeds = ! $strict ? self::frequency() : true;
+        if( in_array('pre-code', $tags) && $tag_proceeds ){
+            $properties = self::array_rand_slice( self::DEFAULT_CSS_PROPERTY, rand(0, count(self::DEFAULT_CSS_PROPERTY)-2) );
+
+            // If there are properties then I show the class names
+            if(  !empty( $properties )  ){
+                $_html_css = '.my_class_css_' . rand(111,999) . "{\n";
+                if(  !empty( $properties ) ){
+                    foreach ($properties as $value) {
+                        $_html_css .= "  {$value}:". self::generateValueCss( $value ) .";\n";
+                    }
+                }
+                $_html_css .="}";
+                // The wraps are placed
+                $_html_css = $_html = "<pre><code>". $_html_css ."</code></pre>";
+
+                // Insert the block into the content below a calculated random paragraph
+                $content = self::prefixInsertAfterParagraph( $_html, rand(1,count($content)) , $content);
+            }
 
             $tag_proceeds = false; // Assign to the FALSE state to validate with the following tag
         }
@@ -1402,6 +1758,7 @@ final class LZFakeTextGenerator {
      * Add and close inline tags
      *
      * @since   1.0     2019-09-16      Release
+     * @since   1.2     2019-10-09      The attributes 'width' and 'height' are added
      *
      * @param   string  $tag            Current tag
      * @param   integer $status         Tag Status{
@@ -1409,11 +1766,11 @@ final class LZFakeTextGenerator {
      *      @example 2 Close the tag
      * }
      * @return  string
-     */ // FiXME: cambiarn en ingles esta funcion
+     */
     private static function openAndCloseInlineTag( $tag, $status = 1 ){
 
-        // Si tiene status == 0 es porqe va cerrar ese tag entonces lo quito de la matrix
-        // de tags abiertos.
+        // If it has status == 0 it is because it will close that tag then I remove it from the matrix
+        // of open tags.
         if( $status == 0 ){
             unset( self::$currenTag[$tag] );
         }
@@ -1435,7 +1792,7 @@ final class LZFakeTextGenerator {
                 //if( count( self::$currenTag ) > 0 ) return '';
                 $alt   = self::createSentence( 4, 15 );
                 $align = self::get_align_image();
-                return $status == 1 ? self::createImage( ['alt' => $alt, 'title'=> $alt, 'class' => $align] ) : '';
+                return $status == 1 ? self::createImage( ['alt' => $alt, 'title'=> $alt, 'class' => $align, 'width' => rand(150,640), 'height' => rand(150,550) ] ) : '';
             default:
                 return '';
             break;
@@ -1530,27 +1887,50 @@ final class LZFakeTextGenerator {
     /**
      * Generate a fake email
      *
-     * @since   1.0     2019-09-18      Release
-     * @return string
+     * @since   1.0         2019-09-18      Release
+     * @since   1.2         2019-10-09      Now you can add a business email
+     *
+     * @param   $input      2019-10-09      Entering a customizable name
+     * @param   $is_company 2019-10-09      true = generate an email for a company, false = generate a name email
+     * @return  string
      */
-    private static function generateEmail( $input = '' ){
+    private static function generateEmail( $input = '', $is_company = false ){
+        // Set domain
+        $domain = ! $is_company ? self::getServerAndDomain() : self::getCompanyAndDomain();
         // If you have a proper name then send it
-        if( $input ) return $input . '@' .self::getServerAndDomain();
+        if( $input ) return $input . '@' . $domain;
 
         // Generate fake names
-        return  strtolower( self::DEFAULT_NAMES[ rand( 0, count( self::DEFAULT_NAMES ) - 1 ) ] ) . '.' .
+        if( ! $is_company ){
+            return  strtolower( self::DEFAULT_NAMES[ rand( 0, count( self::DEFAULT_NAMES ) - 1 ) ] ) . '.' .
                 strtolower( self::DEFAULT_LASTNAME[ rand( 0, count( self::DEFAULT_LASTNAME ) - 1 ) ] ) . '@' .
-                self::getServerAndDomain();
+                $domain;
+        }else{
+            return
+                strtolower( self::DEFAULT_LASTNAME[ rand( 0, count( self::DEFAULT_LASTNAME ) - 1 ) ] ) . '@' .
+                $domain;
+        }
     }
 
     /**
      * Returns a random disposable server
      *
      * @since   1.0     2019-09-19      Release
-     * @return  string;
+     * @return  string
      */
     private static function getServerAndDomain(){
         return self::DEFAULT_EMAIL_SERVER[ rand( 0, count( self::DEFAULT_EMAIL_SERVER ) - 1 ) ] .
+        self::DEFAULT_DOMAINS[ rand( 0, count( self::DEFAULT_DOMAINS ) - 1 ) ];
+    }
+
+    /**
+     * Returns a random company and domain
+     *
+     * @since   1.2     2019-10-08      Release
+     * @return  string
+     */
+    private static function getCompanyAndDomain(){
+        return strtolower( self::DEFAULT_COMPANY[ array_rand( self::DEFAULT_COMPANY ) ] ) .
         self::DEFAULT_DOMAINS[ rand( 0, count( self::DEFAULT_DOMAINS ) - 1 ) ];
     }
 
@@ -1560,15 +1940,21 @@ final class LZFakeTextGenerator {
      * 'prefix' is the start of the CC number as a string, any number of digits.
      * 'length' is the length of the CC number to generate. Typically 13 or 16
      *
-     *  @since  1.0     2019-09-18      Release
+     * @since   1.0     2019-09-18  Release
+     * @since   1.2     2019-10-09  Now calculate the size of numbers generated by the credit card
+     *                              Each card has a different size.
      *
-     *  @param  string  $prefix         CC Type
-     *  @return string
+     * @param   string  $prefix     Number begin
+     * @param   string  $type       Name of the CC that is being generated
+     * @return  string
      */
-    private static function CCcompletednumber($prefix) {
+    private static function CCcompletednumber($prefix, string $type = 'visa') {
         $ccnumber = $prefix;
-        // The mastercard has 15 digits
-        $length = $prefix == 'mastercard' ? 15 : 16;
+        // Valid how many digits is the number
+        if( ! in_array($type, array_keys( self::DEFAULT_CCARD_WIDTH) ) ) throw new Exception('Invalid prefix, can\'t get digit size');
+        $length = self::DEFAULT_CCARD_WIDTH[$type];
+        $length = is_array( $length ) && count( $length ) > 1 ?  $length[array_rand($length)] : $length[0];
+
         # generate digits
         while ( strlen($ccnumber) < ($length - 1) ) {
             $ccnumber .= rand(0,9);
@@ -1598,18 +1984,34 @@ final class LZFakeTextGenerator {
      * Generate CC
      *
      * @since   1.0     2019-09-18      Release
+     * @since   1.2     2019-10-09      Now the credit card has a real success according to its type
      *
      * @param array $prefixList Array prefix of the type of card required
      */
     private static function creditCardNumber($prefix = '') {
-        $type = ! $prefix ? self::DEFAULT_CCARD[ array_rand(self::DEFAULT_CCARD) ] : self::DEFAULT_CCARD[$prefix];
+        $array_cc = array_keys( self::DEFAULT_CCARD );
+        $prefix = ! $prefix ? $array_cc[ array_rand(  $array_cc  ) ] :  $prefix;
+        $type   = self::DEFAULT_CCARD[$prefix];
+
         $new_compare = $prefix ? array_keys( self::DEFAULT_CCARD ) : ['visa'];
         if( $prefix && count( array_intersect( [$prefix], $new_compare ) ) == 0 )  throw new Exception('Credit Card Not Supported');
         $serie = $type[ array_rand( $type ) ];
-        return self::CCcompletednumber($serie);
+        return self::CCcompletednumber($serie,$prefix);
     }
 
-    // FIXME: comentarios a este funcion
+    /**
+     * Funcion recursiva de valores por defendo de un array
+     *
+     * If the default value does not exist, add it, if there is no value then the default adds it
+     * If it exists then write it over with the new value.
+     *
+     * @since   1.2     2019-10-06      Release
+     *
+     * @param   array   $args           Arguments to evaluate
+     * @param   array   $default        Default values
+     * @return  array
+     *
+     */
     private function array_parse_args( &$args, $defaults ) {
 		$args     = (array) $args;
 		$defaults = (array) $defaults;
@@ -1624,6 +2026,14 @@ final class LZFakeTextGenerator {
 		return $result;
 	}
 
+    /**
+     * Assign an image with different attributes
+     *
+     * @since   1.2     2019-10-09  Release
+     *
+     * @param   array   $attr       Image Attributes
+     * @param   string  $tag_wrap   Tag that can wrap the IMG tag
+     */
     private static function createImage( array $attr = [], $tag_wrap = '' ){
 
         $html     = '<img ';
@@ -1649,6 +2059,62 @@ final class LZFakeTextGenerator {
         $html .=' />';
 
         return $tag_wrap ? "<{$tag_wrap}>" . $html . "</{$tag_wrap}>" : $html;
+    }
+
+    /**
+     * Genera valores por cada una de las propiedades de css en el switch
+     *
+     * @since   1.2     2019-10-08      Release
+     *
+     * @param   string  $property       Property that requires a value
+     * @return  string
+     */
+    private static function generateValueCss( $property ){
+
+        switch ($property) {
+            case 'background':
+                return self::GenerateRandomColor();
+                break;
+            case 'overflow':
+                return array_rand(['hidden','visible','scroll','auto']);
+                break;
+            case 'color':
+                return self::GenerateRandomColor();
+                break;
+            case 'font-size':
+                return rand(8,30) . 'px';
+                break;
+            case 'font-width':
+                return array_rand(['100','200','300','400','500','600','700','800','900']);
+                break;
+            case 'margin':
+                $value = self::array_rand_slice([rand(0,20),rand(0,20),rand(0,20),rand(0,20)],rand(1,3));
+                return implode('px ',$value);
+                break;
+            case 'padding':
+                $value = self::array_rand_slice([rand(0,20),rand(0,20),rand(0,20),rand(0,20)],rand(1,3));
+                return implode('px ',$value);
+                break;
+            default:
+                return 'initial';
+                break;
+        }
+
+    }
+
+    /**
+     * It generates a random colo in Hex format
+     *
+     * @since   1.2     2019-10-08      Release
+     * @return  string
+     */
+    private static function GenerateRandomColor(){
+        $color = '#';
+        $colorHexLighter = array("9","A","B","C","D","E","F" );
+        for($x=0; $x < 6; $x++):
+            $color .= $colorHexLighter[array_rand($colorHexLighter, 1)]  ;
+        endfor;
+        return substr($color, 0, 7);
     }
 
 
@@ -1679,9 +2145,8 @@ final class LZFakeTextGenerator {
 //              ▁ ▂ ▄ ▅ ▆ ▇ FRONTEND - PUBLIC ▇ ▆ ▅ ▄ ▂ ▁
 //        𝗽𝘂𝗯𝗹𝗶𝗰 𝗳𝘂𝗻𝗰𝘁𝗶𝗼𝗻𝘀 𝘁𝗵𝗮𝘁 𝘁𝗵𝗲 𝘂𝘀𝗲𝗿 𝗰𝗮𝗻 𝗮𝗰𝗰𝗲𝘀𝘀 𝗮𝗻𝗱 𝗺𝗮𝗻𝗶𝗽𝘂𝗹𝗮𝘁𝗲 𝗳𝗼𝗿 𝗲𝗮𝘀𝘆 𝘂𝘀𝗲
 //___________________________________________________________________________________
-    // FIXME: poner el comentario a español
     /**
-     * Obtiene 1 palabra aleatoria
+     * Get 1 random word
      *
      * @since   1.0     2019-09-16      Release
      * @return  string
@@ -1855,6 +2320,10 @@ final class LZFakeTextGenerator {
         return self::generateEmail( $input );
     }
 
+    public static function get_email_company( $input = '' ){
+        return self::generateEmail( $input, 1 );
+    }
+
     /**
      * Generate the digits of a credit card
      *
@@ -1913,6 +2382,15 @@ final class LZFakeTextGenerator {
         return ! empty( $avalible ) ? array_rand( $avalible ) : self::getServerAndDomain();
     }
 
+    /**
+     * Place the class for alignment of an image
+     *
+     * @since   1.2     2019-10-09      Release
+     *
+     * @param   string  $value          Class value to put for an image address
+     * @param   string  $direction      Acepta valores de LEFT|RIGHT
+     * @return  string
+     */
     public static function set_align_imagen( $value, $direction = 'left' ){
         if( ! in_array( $direction, ['left','right'] ) ) throw new Exception('Invalid direction for align image, only allow "right"|"left" ');
 
@@ -1923,8 +2401,44 @@ final class LZFakeTextGenerator {
         }
     }
 
+    /**
+     * Get the address class of an image
+     *
+     * @since   1.2     2019-10-09      Release
+     * @return  string
+     */
     public static function get_align_image(){
         return self::frequency() ? self::$img_align_left : self::$img_align_right;
+    }
+
+    /**
+     * Get a company name
+     *
+     * @since   1.2     2019-10-09      Release
+     * @return  string
+     */
+    public static function get_company(){
+        return self::DEFAULT_COMPANY[ array_rand( self::DEFAULT_COMPANY ) ];
+    }
+
+    /**
+     * Get a domain name of a company
+     *
+     * @since   1.2     2019-10-09      Release
+     * @return  string
+     */
+    public static function get_domain_company(){
+        return self::getCompanyAndDomain();
+    }
+
+    /**
+     * Get a term (a real word)
+     *
+     * @since   1.2     2019-10-09      Release
+     * @return  string
+     */
+    public static function get_term(){
+        return self::DEFAULT_TERMS[ array_rand( self::DEFAULT_TERMS ) ];
     }
 
 }

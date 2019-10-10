@@ -14,6 +14,11 @@ Hi, I'm Lenin, and I dared to create this class that will allow you to generate 
 | Decimals                     | :heavy_check_mark: | :x:
 | Ip v4 & v6                   | :heavy_check_mark: | :x:
 | Credit Cards                 | :heavy_check_mark: | :x:
+| Company's name               | :heavy_check_mark: | :x:
+| Company's email              | :heavy_check_mark: | :x:
+| Domain                       | :heavy_check_mark: | :x:
+| Credit Cards                 | :heavy_check_mark: | :x:
+| Credit Cards                 | :heavy_check_mark: | :x:
 | Word                         | :heavy_check_mark: | :x:
 | Words                        | :heavy_check_mark: | :x:
 | Sentences                    | :heavy_check_mark: | :x:
@@ -99,7 +104,7 @@ To get a random credit card you must use this function `get_credit_card( $type )
 ###### PARAMETERS
 
 > **$type** | string |  Default: ```NULL```: You can specify the type of card you want to generate. Currently supports. ```visa
-mastercard|amex|discover|enroute|jbc|voyager```. If you leave it empty then it will generate a random type of credit card type.
+mastercard|amex|discover|enroute|jbc|voyager|carterblanche|dinersclub```. If you leave it empty then it will generate a random type of credit card type.
 
 ###### EXAMPLE
 
@@ -149,6 +154,42 @@ echo $FAKE->get_decimal(1000); // Result: 1047.23
 echo $FAKE->get_decimal(100,1000); // Result: 815.48
 echo $FAKE->get_decimal(100,200,4); // Result: 170.9588
 ```
+---
+
+### Get a Company
+
+To get a random company name  you must use this function `get_company()`
+
+###### EXAMPLE
+
+```php
+echo $FAKE->get_company(); // Result: Tekcar
+```
+---
+
+
+### Get a email company
+
+To get a random company email you must use this function `get_email_company()`
+
+###### EXAMPLE
+
+```php
+echo $FAKE->get_email_company(); // Result: barry@anaframe.ec
+```
+
+---
+
+### Get a domain
+
+To get a random domain you must use this function `get_domain_company()`
+
+###### EXAMPLE
+
+```php
+echo $FAKE->get_domain_company(); // Result: cryptotemplate.it
+```
+
 ---
 
 ### Get a random Word
@@ -380,4 +421,4 @@ Result:
 If you have any doubt, suggestion or report a bug, don't hesitate to write me in the [github](https://github.com/LeninZapata/LZFakeTextGenerator/issues) issues section.
 
 ## License
-This framework is licensed 100% GPL.
+This class is licensed 100% GPL.

@@ -11,3 +11,4 @@ echo $FAKE->set_tag_block( $FAKE->get_paragraphs(5), ['h','pre','ul','dl','block
 echo $FAKE->set_tag_block( $FAKE->get_paragraphs(5), $FAKE->all_tag_block_supported, false, true );echo "<hr />";
 echo $FAKE->set_tag_block( $FAKE->get_paragraphs(2), $FAKE->all_tag_block_supported, true, true );echo "<hr />";
 echo $FAKE->set_tag_block( $FAKE->set_tag_inline($FAKE->get_paragraphs(5)), $FAKE->all_tag_block_supported, true, true );echo "<hr />";
+echo $FAKE->set_tag_block( $FAKE->get_paragraphs(5), ['h1','h2','h3','h4','h5','h6','h7']) ;echo "<hr />";
