@@ -6,7 +6,7 @@
  * of words or sentences.
  *
  * @author  Lenin Zapata
- * @version 1.2 - 2019-10-09
+ * @version 1.4 - 2020-01-08
  *
  * ╔══╗
  * ╚╗╔╝
@@ -31,7 +31,7 @@ final class LZFakeTextGenerator {
     DEFAULT_MAX_WORDS_PER_SENTENCE  = 10,
     DEFAULT_PUNCTUATION_MARKS       = [
         '.','.','.','.',
-        '!','!','!',
+        '!','!','!','!','!','!',
         '?',
         ':',':',
         ';', ';', ';'
@@ -41,16 +41,21 @@ final class LZFakeTextGenerator {
     //|
     TAG_SUPPORTED       = ['','a','strong','em','i','mark','code',], // 6 tags inline
     TAG_BLOCK_SUPPORTED = ['','ul','lo','dl','blockquote','h26','heading','h','h1','h2','h3','h4','h5','h6','h7','pre','div','img','hr','table','pre-code'], // 7 tags block
+    TAG_SUPPORTED_FRECUENCY = [
+        'APPEARS_IN_PARAGRAPH' => 80,
+        'APPEARS_IN_PHRASE'    => 70,
+    ],
+    TAG_BLOCK_SUPPORTED_FRECUENCY = 50,
     FREQUENCY_RELATIVE  = [ // 4 random set frequencies
         'very-low' => 10,
         'low'      => 25,
         'medium'   => 50,
-        'high'     => 75
+        'high'     => 80
     ],
     LENGTH_PARAGRAPH = [ // 3 lengths of paragraphs size
-        'short'  => '3|7',
-        'medium' => '7|15',
-        'long'   => '20|30',
+        'short'  => '2|5',
+        'medium' => '6|10',
+        'long'   => '11|20',
     ],
     DEFAULT_WORDS = [ // 777 words
         'post', 'emensos', 'insuperabilis', 'expeditionis', 'eventus', 'languentibus', 'partium', 'animis', 'quas', 'periculorum', 'varietas', 'fregerat', 'et', 'laborum', 'nondum',
@@ -1018,8 +1023,9 @@ final class LZFakeTextGenerator {
         'https://images.unsplash.com/photo-1558980664-ce6960be307d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80',
     ],
     DEFAULT_IMAGE_ALIGN = [
-        'LEFT'  => ' class_image_left ',
-        'RIGHT' => ' class_image_right ',
+        'LEFT'   => ' class_image_left ',
+        'RIGHT'  => ' class_image_right ',
+        'CENTER' => ' class_image_center ',
     ],
     DEFAULT_CSS_PROPERTY = [
         'background',
@@ -1029,7 +1035,8 @@ final class LZFakeTextGenerator {
         'font-width',
         'margin',
         'padding',
-    ];
+    ],
+    DEFAULT_CONTENT_CUSTOM = 'My custom text';
 
     private static
     /**
@@ -1097,7 +1104,68 @@ final class LZFakeTextGenerator {
     /**
      * Right alignment
      */
-    $img_align_right = self::DEFAULT_IMAGE_ALIGN['RIGHT'];
+    $img_align_right = self::DEFAULT_IMAGE_ALIGN['RIGHT'],
+    /**
+     * Center alignment
+     */
+    $img_align_center = self::DEFAULT_IMAGE_ALIGN['CENTER'],
+    /**
+     * Image collection variable for internal manipulation is added
+     * @since   1.xx    2019-10-14      Release
+     * @var     array
+     */
+    $img_set_collection_img = self::DEFAULT_IMAGES,
+    /**
+     * Attribute for image defects
+     * @since   1.xx    2019-10-19      Release
+     * @var     array
+     */
+    $img_attr_img = [
+        'alt'    => '',
+        'src'    => '',
+        'title'  => '',
+        'class'  => '',
+        'width'  => '',
+        'height' => '',
+    ],
+    /**
+     * Frequencies that an inline tag appears in different instances
+     * @since   1.xx    2019-10-14      Release
+     * @var     array
+     */
+    $tag_inline_frecuency = self::TAG_SUPPORTED_FRECUENCY,
+    /**
+     * Frequencies that an blick tag appears in text
+     * @since   1.xx    2019-10-14      Release
+     * @var     array
+     */
+    $tag_block_frecuency  = self::TAG_BLOCK_SUPPORTED_FRECUENCY,
+    /**
+     * The values ​​that have this array are the block tags that can be
+     * Repeat more times to get more than one within a text
+     *
+     * @since   1.3    2019-10-14      Release
+     * @example{
+     *  'h1' => 5, // where five is the number of repeats
+     *  'blockquote' => 2,
+     * }
+     * @var     array
+     */
+    $tag_repeater = [],
+    /**
+     * Custom text, work with custom block
+     * currently by default it is an array of data
+     *
+     * @since   1.3     2019-11-09      Release
+     */
+    $text_custom = DEFAULT_CONTENT_CUSTOM,
+    /**
+     * Add a custom link for the <a /> tag
+     *
+     * @since   1.4     2020-01-08      Release
+     */
+    $link_for_tag_a = '#';
+
 
     public
     /**
@@ -1114,8 +1182,6 @@ final class LZFakeTextGenerator {
      * @var     array
      */
     $all_tag_inline_supported = self::TAG_SUPPORTED;
-
-
 
 
 
@@ -1268,7 +1334,7 @@ final class LZFakeTextGenerator {
      * }
      * @return  bool
      */
-    private static function frequency( $frequency = 'medium' ){
+    public static function frequency( $frequency = 'medium' ){
         $freq = self::$frequency;
         if( is_string( $frequency ) ){
 
@@ -1282,8 +1348,8 @@ final class LZFakeTextGenerator {
                 throw new Exception('Invalidity frequency Only accepted: very-low, low, medium, high or number 1-100');
             }
         }elseif( is_numeric( $frequency ) ){
-            if( $frequency > 100 || $frequency < 1 ){
-                throw new Exception('The frequency must be between a rand of the 1-100');
+            if( $frequency > 100 || $frequency < 0 ){
+                throw new Exception('The frequency must be between a rand of the 0-100');
             }
             $value_random = rand(1,100);
             $value_freq   = $frequency;
@@ -1345,9 +1411,12 @@ final class LZFakeTextGenerator {
         // Validate if the html tag you want to add to the text is supported in this class
         if( count( array_intersect( $tag_to_use, self::TAG_SUPPORTED ) ) == 0 )  throw new Exception('You have assigned a tag that is not supported');
 
+        // I get the frequency for inline tag
+        $tag_inline_frecuency = self::get_tag_inline_frecuency();
+
         if( ! $strict ){
-            // 20% chance that add an html tag
-            if( self::frequency(20) ) return $sentences;
+            // % chance that add an html tag
+            if( ! self::frequency( $tag_inline_frecuency['APPEARS_IN_PARAGRAPH'] ) ) return $sentences;
         }
 
         // Separate each phrase in a location from an array
@@ -1361,8 +1430,8 @@ final class LZFakeTextGenerator {
             foreach( $tag_to_use as $tag ) {
 
                 if( ! $strict ){
-                    // 20% chance that this tag is added within this sentence
-                    if ( self::frequency(20) ) continue;
+                    // 80% chance that this tag is added within this sentence
+                    if ( ! self::frequency( $tag_inline_frecuency['APPEARS_IN_PHRASE'] ) ) continue;
                 }
 
                 // 50% chance of adding the tag in one of the 2 half of the sentence
@@ -1432,12 +1501,12 @@ final class LZFakeTextGenerator {
                             ? self::TAG_SUPPORTED
                             : self::array_rand_slice( self::TAG_SUPPORTED, (count( self::TAG_SUPPORTED ) / 2) + 1 );
         // Remove the IMG tag
-        unset($tags_for_blocks['img']);
+        // unset($tags_for_blocks['img']);
 
         // BLOCK - UL (Unordered Lists)
         $_html = '';
         // Validate if this tag is inserted or not in the content
-        $tag_proceeds = ! $strict ? self::frequency() : true;
+        $tag_proceeds = ! $strict ? self::frequency( static::$tag_block_frecuency ) : true;
         if( in_array('ul', $tags) && $tag_proceeds ){
 
             // It will generate between 2 to 8 lists
@@ -1463,7 +1532,7 @@ final class LZFakeTextGenerator {
         // BLOCK - OL (List sorted)
         $_html = '';
         // Validate if this tag is inserted or not in the content
-        $tag_proceeds = ! $strict ? self::frequency() : true;
+        $tag_proceeds = ! $strict ? self::frequency( static::$tag_block_frecuency ) : true;
         if( in_array('ol', $tags) && $tag_proceeds ){
 
             // It will generate between 2 to 8 lists
@@ -1489,7 +1558,7 @@ final class LZFakeTextGenerator {
         // BLOCK - DL (Description list)
         $_html = '';
         // Validate if this tag is inserted or not in the content
-        $tag_proceeds = ! $strict ? self::frequency() : true;
+        $tag_proceeds = ! $strict ? self::frequency( static::$tag_block_frecuency ) : true;
         if( in_array('dl', $tags) && $tag_proceeds ){
 
             // It will generate between 2 to 8 lists
@@ -1518,7 +1587,7 @@ final class LZFakeTextGenerator {
         // BLOCK - Blockquote
         $_html = '';
         // Validate if this tag is inserted or not in the content
-        $tag_proceeds = ! $strict ? self::frequency() : true;
+        $tag_proceeds = ! $strict ? self::frequency( static::$tag_block_frecuency ) : true;
         if( in_array('blockquote', $tags) && $tag_proceeds ){
 
             // The quotation has between 1 to 3 words
@@ -1536,7 +1605,7 @@ final class LZFakeTextGenerator {
         // BLOCK - Heading
         $_html = '';
         // Validate if this tag is inserted or not in the content
-        $tag_proceeds = ! $strict ? self::frequency() : true;
+        $tag_proceeds = ! $strict ? self::frequency( static::$tag_block_frecuency ) : true;
         if( (in_array('h', $tags)||in_array('h26', $tags)||in_array('heading', $tags)) && $tag_proceeds ){
             foreach( range(2,6) as $heading ){
                 // 50% chance that this tag appeared in the total content
@@ -1554,13 +1623,15 @@ final class LZFakeTextGenerator {
         // BLOCK - Heading separate
         $_html = '';
         // Validate if this tag is inserted or not in the content
-        $tag_proceeds    = ! $strict ? self::frequency('high') : true;
+        //$tag_proceeds    = ! $strict ? self::frequency( static::$tag_block_frecuency ) : true;
         $header_avalible = array_intersect( ['h1','h2','h3','h4','h5','h6','h7'], $tags );
-        $header_avalible = self::array_rand_slice( $header_avalible, rand(1,7) );
+        $header_avalible = self::get_array_element_repeat($header_avalible);
+        shuffle($header_avalible);
+        //$header_avalible = array_rand($header_avalible);//self::array_rand_slice( $header_avalible, rand(3,7) );
 
-        if( (  !empty( $header_avalible )  ) && $tag_proceeds ){
+        if( (  !empty( $header_avalible )  ) ){
             foreach( $header_avalible as $heading ){
-                // 50% chance that this tag appeared in the total content
+                // % chance that this tag appeared in the total content
                 if( self::frequency('high') ){
                     // Create a title of 8 to 15 characters
                     $text = self::createSentence(8,15);
@@ -1575,7 +1646,7 @@ final class LZFakeTextGenerator {
         // BLOCK - Pre
         $_html = '';
         // Validate if this tag is inserted or not in the content
-        $tag_proceeds = ! $strict ? self::frequency() : true;
+        $tag_proceeds = ! $strict ? self::frequency( static::$tag_block_frecuency ) : true;
         if( in_array('pre', $tags) && $tag_proceeds ){
             // Between 10 and 25 characters
             $text = self::createSentence(10,25);
@@ -1589,7 +1660,7 @@ final class LZFakeTextGenerator {
         // BLOCK - Div
         $_html = '';
         // Validate if this tag is inserted or not in the content
-        $tag_proceeds = ! $strict ? self::frequency() : true;
+        $tag_proceeds = ! $strict ? self::frequency( static::$tag_block_frecuency ) : true;
         if( in_array('div', $tags) && $tag_proceeds ){
             // Between 10 and 25 characters
             $text = self::createSentence(10,25);
@@ -1603,7 +1674,7 @@ final class LZFakeTextGenerator {
         // BLOCK - HR
         $_html = '';
         // Validate if this tag is inserted or not in the content
-        $tag_proceeds = ! $strict ? self::frequency() : true;
+        $tag_proceeds = ! $strict ? self::frequency( static::$tag_block_frecuency ) : true;
         if( in_array('hr', $tags) && $tag_proceeds ){
             $_html .= '<hr />';
             // Insert the block into the content below a calculated random paragraph
@@ -1615,7 +1686,7 @@ final class LZFakeTextGenerator {
         // BLOCK - IMG
         $_html = '';
         // Validate if this tag is inserted or not in the content
-        $tag_proceeds = ! $strict ? self::frequency() : true;
+        $tag_proceeds = ! $strict ? self::frequency( static::$tag_block_frecuency ) : true;
         if( in_array('img', $tags) && $tag_proceeds ){
             // Between 10 and 25 characters for alt
             $alt    = self::createSentence(4,15);
@@ -1630,7 +1701,7 @@ final class LZFakeTextGenerator {
         // BLOCK - Table
         $_html = '';
         // Validate if this tag is inserted or not in the content
-        $tag_proceeds = ! $strict ? self::frequency('low') : true;
+        $tag_proceeds = ! $strict ? self::frequency( static::$tag_block_frecuency ) : true;
         if( in_array('table', $tags) && $tag_proceeds ){
 
             // Define the rows and columns
@@ -1675,7 +1746,7 @@ final class LZFakeTextGenerator {
         // BLOCK - Pre-Code
         $_html = '';
         // Validate if this tag is inserted or not in the content
-        $tag_proceeds = ! $strict ? self::frequency() : true;
+        $tag_proceeds = ! $strict ? self::frequency( static::$tag_block_frecuency ) : true;
         if( in_array('pre-code', $tags) && $tag_proceeds ){
             $properties = self::array_rand_slice( self::DEFAULT_CSS_PROPERTY, rand(0, count(self::DEFAULT_CSS_PROPERTY)-2) );
 
@@ -1694,6 +1765,20 @@ final class LZFakeTextGenerator {
                 // Insert the block into the content below a calculated random paragraph
                 $content = self::prefixInsertAfterParagraph( $_html, rand(1,count($content)) , $content);
             }
+
+            $tag_proceeds = false; // Assign to the FALSE state to validate with the following tag
+        }
+
+        // BLOCK - Custom
+        $_html = '';
+        // Validate if this tag is inserted or not in the content
+        $tag_proceeds = ! $strict ? self::frequency( static::$tag_block_frecuency ) : true;
+        if( in_array('custom', $tags) && $tag_proceeds ){
+
+            $_html .= self::$img_attr_img;
+
+            // Insert the block into the content below a calculated random paragraph
+            $content = self::prefixInsertAfterParagraph( $_html, rand(1,count($content)) , $content);
 
             $tag_proceeds = false; // Assign to the FALSE state to validate with the following tag
         }
@@ -1738,15 +1823,18 @@ final class LZFakeTextGenerator {
      * @return  array
      */
     private static function fixNumberParagraphs( $paragraphs ){
+        $is_paragraph = false;
+
         // Correct the problem of blank paragraphs
         if( ! is_array( $paragraphs ) ){
-            $paragraphs = explode('</p>', $paragraphs);
+            $paragraphs   = explode('</p>', $paragraphs);
+            $is_paragraph = true;
         }
         $paragraph_fix = [];
         if( is_array( $paragraphs ) && ! empty( $paragraphs ) ){
             foreach( $paragraphs as $value ){
                 if( ! empty( $value ) ){
-                    $paragraph_fix[] = $value;
+                    $paragraph_fix[] = $value . ( $is_paragraph ? '</p>' : '' );;
                 }
             }
         }
@@ -2038,12 +2126,12 @@ final class LZFakeTextGenerator {
 
         $html     = '<img ';
         $defaults = [
-            'src'    => self::DEFAULT_IMAGES[ rand( 0, count( self::DEFAULT_IMAGES ) - 1 ) ],
+            'src'    => self::$img_set_collection_img[ rand( 0, count( self::$img_set_collection_img ) - 1 ) ],
             'alt'    => '',
             'title'  => '',
             'width'  => '',
             'height' => '',
-            'class'  => '',
+            'class'  => self::get_align_image(),
         ];
 
         $args = self::array_parse_args( $attr, $defaults );
@@ -2117,8 +2205,103 @@ final class LZFakeTextGenerator {
         return substr($color, 0, 7);
     }
 
+    /**
+     * Get inline tag frequencies
+     *
+     * @since   1.xx    2019-10-14      Release
+     * @return  array
+     */
+    private static function get_tag_inline_frecuency(){
+        return static::$tag_inline_frecuency;
+    }
 
+    /**
+     * Allows you to repeat a tag as many times as it is set
+     * with the associative array variable $tag_repeater
+     *
+     * @since   1.xx    2019-10-14      Release
+     *
+     * @param   array   $array          Arrangement where the data to be repeated will be verified
+     * @return  array
+     */
+    private static function get_array_element_repeat( $array ){
 
+        if( empty( self::$tag_repeater )  ) return $array;
+
+        $ok_repeater = array_intersect( $array, array_keys( self::$tag_repeater ) );
+        $new_array   = [];
+
+        if(  ! empty( $ok_repeater )  ){
+            foreach( $ok_repeater as $value ){
+
+                if( isset(self::$tag_repeater[$value]) ){
+                    $to = self::$tag_repeater[$value];
+                    foreach( range( 1, $to ) as $something ){
+                        $new_array[] = $value;
+                    }
+                }
+
+            }
+        }
+
+        return array_merge($array,$new_array);
+    }
+
+    /**
+     * Insert an image into a text
+     *
+     * @since   1.3     2019-11-09      Release
+     *
+     * @param   string  $type           If 'block' indicates that it is a block image, if it is 'inline' then the image is within the text
+     * @param   string  $content        Content where the image will be inserted
+     * @return  string
+     */
+    private function setInsertImage( $type = 'block', $content ){
+        $_html = self::createImage( self::$img_attr_img, ($type == 'block' ? 'p' : '') );
+
+        // Number of paragraphs
+        $arr_paragraph = self::fixNumberParagraphs( $content );
+
+        if( $type == 'block' ){
+            // Insert the block into the content below a calculated random paragraph
+            return  self::get_string_paragraph(
+                self::prefixInsertAfterParagraph(
+                    $_html,
+                    rand(1, count($arr_paragraph) ),
+                    $content)
+            );
+        }elseif( $type == 'inline' ){
+            $num_paragraph = rand(0, count($arr_paragraph) - 1 );
+            $arr_paragraph[$num_paragraph] = str_replace( '<p>', '<p>'.$_html, $arr_paragraph[$num_paragraph] );
+            return self::get_string_paragraph( $arr_paragraph );
+        }
+
+    }
+
+    /**
+     * Insert an custom text into a content
+     *
+     * @since   1.3     2019-11-09      Release
+     *
+     * @param   string  $content        Content where the image will be inserted
+     * @return  string
+     */
+    private function setInsertContent( $content, $text = '', $number_paragraph = 0 ){
+
+        // Number of paragraphs
+        $arr_paragraph = self::fixNumberParagraphs( $content );
+
+        // Get the content I'm going to insert
+        $insert = ! $text ? self::$text_custom : $text;
+
+        return  self::get_string_paragraph(
+            self::prefixInsertAfterParagraph(
+                $insert,
+                ( ! $number_paragraph ? rand(1, count($arr_paragraph) ) : $number_paragraph) ,
+                $content)
+        );
+
+    }
 
 
 
@@ -2296,7 +2479,7 @@ final class LZFakeTextGenerator {
      * Generate a random decimal number
      *
      * @since   1.0     2019-09-18      Release
-     * @access  protected
+     * @access  public
      *
      * @param   int     $min            Numero minimo
      * @param   int     $max            Numero maximo
@@ -2320,6 +2503,14 @@ final class LZFakeTextGenerator {
         return self::generateEmail( $input );
     }
 
+    /**
+     * Get a company type email
+     *
+     * @since   1.3     2019-11-09      Release
+     *
+     * @param   string  $input          (optional) You can put a custom name
+     * @return  string
+     */
     public static function get_email_company( $input = '' ){
         return self::generateEmail( $input, 1 );
     }
@@ -2392,12 +2583,14 @@ final class LZFakeTextGenerator {
      * @return  string
      */
     public static function set_align_imagen( $value, $direction = 'left' ){
-        if( ! in_array( $direction, ['left','right'] ) ) throw new Exception('Invalid direction for align image, only allow "right"|"left" ');
+        if( ! in_array( $direction, ['left','right','center'] ) ) throw new Exception('Invalid direction for align image, only allow "right"|"left" ');
 
         if( $direction == 'left' ){
             self::$img_align_left = $value;
         }elseif( $direction == 'right' ){
             self::$img_align_right = $value;
+        }elseif( $direction == 'center' ){
+            self::$img_align_center = $value;
         }
     }
 
@@ -2408,7 +2601,42 @@ final class LZFakeTextGenerator {
      * @return  string
      */
     public static function get_align_image(){
-        return self::frequency() ? self::$img_align_left : self::$img_align_right;
+        $align = [
+            1 => self::$img_align_left,
+            2 => self::$img_align_right,
+            3 => self::$img_align_center,
+        ];
+        return $align[rand(1,3)];
+    }
+
+    /**
+     * Left alignment of the image
+     *
+     * @since   1.3     2019-11-09      Release
+     * @return  string
+     */
+    public static function get_align_image_left(){
+        return self::$img_align_left;
+    }
+
+    /**
+     * Right alignment of the image
+     *
+     * @since   1.3     2019-11-09      Release
+     * @return  string
+     */
+    public static function get_align_image_right(){
+        return self::$img_align_right;
+    }
+
+    /**
+     * Center alignment of the image
+     *
+     * @since   1.3     2019-11-09      Release
+     * @return  string
+     */
+    public static function get_align_image_center(){
+        return self::$img_align_center;
     }
 
     /**
@@ -2441,4 +2669,133 @@ final class LZFakeTextGenerator {
         return self::DEFAULT_TERMS[ array_rand( self::DEFAULT_TERMS ) ];
     }
 
+    /**
+     * Place the percentage of probability that an inline tag is displayed
+     * within a paragraph.
+     *
+     * @since   1.3     2019-10-14      Release
+     *
+     * @param   int     $value          Value probability
+     * @return  void
+     */
+    public static function set_frec_taginl_paragraph( $value ){
+        static::$tag_inline_frecuency['APPEARS_IN_PARAGRAPH'] = $value;
+    }
+
+    /**
+     * Place the percentage of probability that an inline tag is displayed
+     * within a setence.
+     *
+     * @since   1.3     2019-10-14      Release
+     *
+     * @param   int     $value          Value probability
+     * @return  void
+     */
+    public static function set_frec_taginl_sentence( $value ){
+        static::$tag_inline_frecuency['APPEARS_IN_PHRASE'] = $value;
+    }
+
+    /**
+     * Place the percentage of probability that an block tag is displayed
+     * within a text.
+     *
+     * @since   1.3     2019-10-14      Release
+     *
+     * @param   int     $value          Value probability
+     * @return  void
+     */
+    public static function set_frec_tagblock( $value ){
+        static::$tag_block_frecuency = $value;
+    }
+
+    /**
+     * Configure the blocks that will be repeated to have more possibilities to be in content
+     *
+     * @since   1.3     2019-11-09      Release
+     * @param   array   $array          Array associative{
+     *      @example    [ 'h3' => 4, 'h1' => 2 ], where 4 are the times that tag can be repeated within the content.
+     * }
+     * @return  void
+     */
+    public static function set_array_tags_repeat( $array ){
+        static::$tag_repeater = $array;
+    }
+
+    /**
+     * Insert an image into a text (public)
+     *
+     * @since   1.3     2019-11-09      Release
+     *
+     * @param   string  $type           If 'block' indicates that it is a block image, if it is 'inline' then the image is within the text
+     * @param   string  $content        Content where the image will be inserted
+     * @return  string
+     */
+    public static function set_imagen_in_content( $type = 'block', $content = '' ){
+        return self::setInsertImage( $type, $content );
+    }
+
+    /**
+     * Save a collection of url images to use and install it in the content
+     *
+     * @since   1.3     2019-11-09      Release
+     * @param   array   $colection      Array url of images
+     * @return  void
+     */
+    public static function set_collection_image( $colection = [] ){
+        static::$img_set_collection_img = $colection;
+    }
+
+    /**
+     * Add all the attributes that an image has
+     *
+     * @since   1.3     2019-11-09      Release
+     * @param   array   $attr           Array associative attributes per image
+     * @return  void
+     */
+    public static function set_attr_image( $attr = [] ){
+        static::$img_attr_img = $attr;
+    }
+
+    /**
+     * Agrega un texto personalizado
+     *
+     * @since   1.3     2019-11-09      Release
+     * @param   mixed   $custom         Text or data arrangement
+     * @return  void
+     */
+    public static function set_custom_text( $custom ){
+        static::$text_custom = $custom;
+    }
+
+    /**
+     * Insert an custom text into a content (public)
+     *
+     * @since   1.3     2019-11-09      Release
+     *
+     * @param   string  $content        Content where the image will be inserted
+     * @return  string
+     */
+    public static function set_insert_content( $content = '', $text = '', $number_paragraph = 0 ){
+        return self::setInsertContent( $content, $text, $number_paragraph );
+    }
+
+    /**
+     * Update the tag link <a>
+     *
+     * @since   1.4     2020-01-08      Release
+     * @return  string
+     */
+    public static function set_new_link_a( $link = '' ){
+        self::$link_for_tag_a = $link;
+    }
+
+    /**
+     * Get the link tag link <a>
+     *
+     * @since   1.4     2020-01-08      Release
+     * @return  string
+     */
+    public static function get_link_a(){
+        return self::$link_for_tag_a;
+    }
 }
