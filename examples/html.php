@@ -6,6 +6,9 @@ $FAKE = new LZFakeTextGenerator;
 //$FAKE->set_frec_taginl_sentence(100);
 //$FAKE->set_frec_tagblock(50);
 
+// change to link custom
+$FAKE->set_new_link_a('https://google.com');
+
 echo $FAKE->set_tag_inline( 'This is my text that I want to mix randomly with HTML inline tag A', ['a',] );echo "<hr />";
 echo $FAKE->set_tag_inline( $FAKE->get_sentence(10,20), ['a','strong','em'] );echo "<hr />";
 echo $FAKE->set_tag_inline( $FAKE->get_paragraph('long',true), $FAKE->all_tag_inline_supported, true );echo "<hr />";

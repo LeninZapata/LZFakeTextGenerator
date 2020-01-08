@@ -1158,7 +1158,7 @@ final class LZFakeTextGenerator {
      *
      * @since   1.3     2019-11-09      Release
      */
-    $text_custom = DEFAULT_CONTENT_CUSTOM,
+    $text_custom = self::DEFAULT_CONTENT_CUSTOM,
     /**
      * Add a custom link for the <a /> tag
      *
@@ -1847,6 +1847,7 @@ final class LZFakeTextGenerator {
      *
      * @since   1.0     2019-09-16      Release
      * @since   1.2     2019-10-09      The attributes 'width' and 'height' are added
+     * @since   1.4     2020-01-08      Customizable link is added
      *
      * @param   string  $tag            Current tag
      * @param   integer $status         Tag Status{
@@ -1865,7 +1866,7 @@ final class LZFakeTextGenerator {
 
         switch ($tag) {
             case 'a':
-                return $status == 1 ? '<a href="#">' : '</a>';
+                return $status == 1 ? '<a href="'. self::get_link_a() .'">' : '</a>';
             case 'strong':
                 return $status == 1 ? '<strong>' : '</strong>';
             case 'em':
